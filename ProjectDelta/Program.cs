@@ -3,6 +3,7 @@ using ProjectDelta.Tools.PreStartChecks;
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using ProjectDelta.Forms;
 
 namespace ProjectDelta
 {

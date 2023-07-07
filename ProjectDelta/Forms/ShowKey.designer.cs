@@ -1,4 +1,4 @@
-﻿namespace ProjectDelta
+﻿namespace ProjectDelta.Forms
 {
     partial class ShowKey
     {

@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ProjectDelta
+namespace ProjectDelta.UserControls
 {
-    public partial class MainForm : Form
+    public partial class UserControl1 : UserControl
     {
-        public MainForm()
+        public UserControl1()
         {
             InitializeComponent();
         }

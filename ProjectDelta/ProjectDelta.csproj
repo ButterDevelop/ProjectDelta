@@ -60,30 +60,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChangeLog.cs">
+    <Compile Include="ClassesForJSONParsing\JSON_Inventory.cs" />
+    <Compile Include="Controllers\HTTPRequestController.cs" />
+    <Compile Include="Forms\ChangeLog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChangeLog.Designer.cs">
+    <Compile Include="Forms\ChangeLog.Designer.cs">
       <DependentUpon>ChangeLog.cs</DependentUpon>
     </Compile>
-    <Compile Include="CheckLicenseForm.cs">
+    <Compile Include="Forms\CheckLicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CheckLicenseForm.Designer.cs">
+    <Compile Include="Forms\CheckLicenseForm.Designer.cs">
       <DependentUpon>CheckLicenseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\InventoryItem.cs" />
+    <Compile Include="Models\InventoryModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShowKey.cs">
+    <Compile Include="Forms\ShowKey.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ShowKey.designer.cs">
+    <Compile Include="Forms\ShowKey.designer.cs">
       <DependentUpon>ShowKey.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\AesGcm256.cs" />
@@ -98,13 +102,19 @@
     <Compile Include="Tools\PreStartChecks\MutexChecker.cs" />
     <Compile Include="Tools\PreStartChecks\UpdateChecker.cs" />
     <Compile Include="Tools\WindowsKey.cs" />
-    <EmbeddedResource Include="ChangeLog.resx">
+    <Compile Include="UserControls\UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\ChangeLog.resx">
       <DependentUpon>ChangeLog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CheckLicenseForm.resx">
+    <EmbeddedResource Include="Forms\CheckLicenseForm.resx">
       <DependentUpon>CheckLicenseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -117,7 +127,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ShowKey.resx">
+    <EmbeddedResource Include="Forms\ShowKey.resx">
       <DependentUpon>ShowKey.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -136,8 +146,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo_transparent.ico" />
+    <None Include="Resources\UserAgents.txt" />
     <None Include="Resources\delta_speed.gif" />
     <None Include="Resources\longlogo.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

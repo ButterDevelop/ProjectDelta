@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace ProjectDelta
+namespace ProjectDelta.Forms
 {
     public partial class ShowKey : Form
     {

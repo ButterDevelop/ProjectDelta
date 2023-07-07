@@ -90,6 +90,19 @@ namespace ProjectDelta.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+        ///Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36
+        ///Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362
+        ///Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 OPR/57.0.3098.106
+        ///Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like  [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string UserAgents {
+            get {
+                return ResourceManager.GetString("UserAgents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на 1.0.0.0.
         /// </summary>
         internal static string Version {
