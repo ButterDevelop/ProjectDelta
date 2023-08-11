@@ -18,6 +18,8 @@ namespace ProjectDelta.Controllers
 
     internal class HTTPRequestController
     {
+        public static readonly int COUNT_OF_REQUEST_ATTEMPTS = 3;
+
         private static string[] _userAgents;
         private static Random _rnd;
 

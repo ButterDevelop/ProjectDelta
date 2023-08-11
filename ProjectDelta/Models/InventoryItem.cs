@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace ProjectDelta.Models
 {
+    internal enum SteamGame
+    {
+        CS = 0,
+        DOTA = 1
+    }
     internal class InventoryItem
     {
         private string _marketHashName;
         private int _appId;
+        private long _classId;
+        private long _instanceId;
         private long _ownerSteamId;
         private bool _marketable;
         private bool _tradable;
@@ -25,9 +32,11 @@ namespace ProjectDelta.Models
             _dateBanEnd = DateTime.MinValue;
         }
 
-        public InventoryItem(string marketHashName, int appId, long ownerSteamId, bool marketable, bool tradable, DateTime dateBanEnd)
+        public InventoryItem(string marketHashName, int appId, long classId, long instanceId, long ownerSteamId, bool marketable, bool tradable, DateTime dateBanEnd)
         {
             _marketHashName = marketHashName;
+            _classId = classId;
+            _instanceId = instanceId;
             _appId = appId;
             _ownerSteamId = ownerSteamId;
             _marketable = marketable;
@@ -45,6 +54,18 @@ namespace ProjectDelta.Models
         {
             get { return _appId; }
             set { _appId = value; }
+        }
+
+        public long ClassId
+        {
+            get { return _classId; }
+            set { _classId = value; }
+        }
+
+        public long InstanceId
+        {
+            get { return _instanceId; }
+            set { _instanceId = value; }
         }
 
         public long OwnerSteamId

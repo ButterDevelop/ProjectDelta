@@ -12,7 +12,6 @@ namespace ProjectDelta.Models
     internal class InventoryModel
     {
         public readonly static int[] AppIDs = new int[2] { 730, 570 };
-        public readonly int COUNT_OF_REQUEST_ATTEMPTS = 3;
         public readonly static string MASK_OWNER_STEAM_ID = "%OwnerSteamID64%", MASK_APP_ID = "%AppId%", MASK_ON_TRADE_COOLDOWN_UNTIL = "On Trade Cooldown Until: ";
         public readonly static string BASE_STEAM_INVENTORY_URL = $"https://steamcommunity.com/inventory/{MASK_OWNER_STEAM_ID}/{MASK_APP_ID}/2";
 
@@ -78,7 +77,8 @@ namespace ProjectDelta.Models
                 {
                     hasNextPage = false;
 
-                    string jsonString = HTTPRequestController.ExecuteFunctionUntilSuccess(() => SendGetInventoryRequest(appId, start_assetid), COUNT_OF_REQUEST_ATTEMPTS);
+                    string jsonString = HTTPRequestController.ExecuteFunctionUntilSuccess(() => SendGetInventoryRequest(appId, start_assetid), 
+                                                                                                HTTPRequestController.COUNT_OF_REQUEST_ATTEMPTS);
                     if (jsonString is null) break;
 
                     JSON_Inventory.Root inventory = JsonConvert.DeserializeObject<JSON_Inventory.Root>(jsonString);
@@ -90,7 +90,11 @@ namespace ProjectDelta.Models
                             if (text_description.value != null && text_description.value.Contains(MASK_ON_TRADE_COOLDOWN_UNTIL))
                                 onTradeCooldownUntil = DateTime.Parse(text_description.value.Replace(MASK_ON_TRADE_COOLDOWN_UNTIL, ""));
                         }
-                        var inventoryItem = new InventoryItem(description.market_hash_name, appId, _ownerSteamID,
+
+                        long classId = long.Parse(description.classid);
+                        long instanceId = long.Parse(description.instanceid);
+
+                        var inventoryItem = new InventoryItem(description.market_hash_name, appId, classId, instanceId, _ownerSteamID,
                                                               description.marketable == 1, description.tradable == 1, onTradeCooldownUntil);
                         InventoryItems.Add(inventoryItem);
                     }

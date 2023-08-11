@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="ClassesForJSONParsing\JSON_Inventory.cs" />
     <Compile Include="Controllers\HTTPRequestController.cs" />
+    <Compile Include="Controllers\MarketAPIController.cs" />
     <Compile Include="Forms\ChangeLog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +103,12 @@
     <Compile Include="Tools\PreStartChecks\MutexChecker.cs" />
     <Compile Include="Tools\PreStartChecks\UpdateChecker.cs" />
     <Compile Include="Tools\WindowsKey.cs" />
+    <Compile Include="UserControls\SettingsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SettingsUserControl.Designer.cs">
+      <DependentUpon>SettingsUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UserControl1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -130,6 +137,9 @@
     <EmbeddedResource Include="Forms\ShowKey.resx">
       <DependentUpon>ShowKey.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SettingsUserControl.resx">
+      <DependentUpon>SettingsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -146,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo_transparent.ico" />
+    <None Include="Resources\GreenGradientBackground.png" />
     <None Include="Resources\UserAgents.txt" />
     <None Include="Resources\delta_speed.gif" />
     <None Include="Resources\longlogo.png" />
