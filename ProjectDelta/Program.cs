@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using ProjectDelta.Forms;
+using ProjectDelta.Controllers;
 
 namespace ProjectDelta
 {
@@ -48,6 +49,11 @@ namespace ProjectDelta
             t.Abort();
 
             if (UpdateChecker.NewVersion() && !disableAutoUpdateCheck && !silent) Application.Run(new ChangeLog());
+
+            if (!DBController.LoadData())
+            {
+                MessageBox.Show("The database was not loaded or was empty.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             Application.Run(new MainForm());
         }
