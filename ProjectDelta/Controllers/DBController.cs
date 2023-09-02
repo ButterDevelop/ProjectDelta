@@ -1,10 +1,13 @@
 ﻿using Newtonsoft.Json;
 using ProjectDelta.Forms;
+using ProjectDelta.Models;
 using ProjectDelta.Tools;
+using SteamAuth;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +17,17 @@ namespace ProjectDelta.Controllers
 {
     internal class DBController
     {
+        public static Dictionary<string, SteamGuardAccount> PlayingAccounts = new Dictionary<string, SteamGuardAccount>();
+        public static Dictionary<string, SteamGuardAccount> BufferAccounts = new Dictionary<string, SteamGuardAccount>();
+        public static Dictionary<string, SteamGuardAccount> MarketAccounts = new Dictionary<string, SteamGuardAccount>();
+
+        private static readonly string MA_FILES_PASSKEY = B64X.Encrypt("Qwertyzxc321678");
         private static readonly string ENCRYPTION_KEY_PATH = B64X.Encrypt("TranslationProperties.dll");
         private static readonly string DB_FILE_PATH = "deltaDB.json";
+        private const string URL_FOR_GETTING_LAST_DB_FROM_SERVER = "http://a116901.hostde27.fornex.host/delta/license/retrieveSyncDB.php";
+        private const string URL_FOR_SENDING_DB_TO_SERVER = "http://a116901.hostde27.fornex.host/delta/license/insertSyncDB.php";
         private static byte[] EncryptionKey;
         private static byte[] EncryptionIV;
-
-        public static readonly string URL_FOR_GETTING_LAST_DB_FROM_SERVER = "http://a116901.hostde27.fornex.host/delta/license/retrieveSyncDB.php";
-        public static readonly string URL_FOR_SENDING_DB_TO_SERVER = "http://a116901.hostde27.fornex.host/delta/license/insertSyncDB.php";
 
         private static JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
         {
@@ -53,13 +60,27 @@ namespace ProjectDelta.Controllers
                 string data = GetDataForLoading();
                 if (data == "-1") return false;
                 
-                /*JSON_DBModel deserialized = JsonConvert.DeserializeObject<JSON_DBModel>(B64X.Decrypt(data));
+                DatabaseModel deserialized = JsonConvert.DeserializeObject<DatabaseModel>(B64X.Decrypt(data));
 
-                MainForm.dataSourceAccounts = new SortableBindingList<Account>(deserialized.Accounts);
-                MainForm.dataSourceItems = new SortableBindingList<Item>(deserialized.Items);
-                MainForm.dataSourceServers = new SortableBindingList<Server>(deserialized.Servers);
-                MainForm.dataSourceProxies = new SortableBindingList<Proxy>(deserialized.Proxies);
-                MainForm.dataSourceOutputs = new SortableBindingList<Output>(deserialized.Outputs);*/
+                PlayingAccounts = deserialized.PlayingAccounts;
+                BufferAccounts = deserialized.BufferAccounts;
+                MarketAccounts = deserialized.MarketAccounts;
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool LoadSteamAccountsData()
+        {
+            try
+            {
+                ManifestSteamAccountsController.Manifest = ManifestSteamAccountsController.GetManifest();
+                Dictionary<string, SteamGuardAccount> allAccounts = ManifestSteamAccountsController.Manifest.GetAllAccounts(B64X.Decrypt(MA_FILES_PASSKEY));
+
 
                 return true;
             }
@@ -73,19 +94,17 @@ namespace ProjectDelta.Controllers
         {
             try
             {
-                /*JSON_DBModel model = new JSON_DBModel()
+                DatabaseModel model = new DatabaseModel()
                 {
-                    Accounts = MainForm.dataSourceAccounts.ToList(),
-                    Items = MainForm.dataSourceItems.ToList(),
-                    Servers = MainForm.dataSourceServers.ToList(),
-                    Proxies = MainForm.dataSourceProxies.ToList(),
-                    Outputs = MainForm.dataSourceOutputs.ToList()
+                    PlayingAccounts = DBController.PlayingAccounts,
+                    BufferAccounts = DBController.BufferAccounts,
+                    MarketAccounts = DBController.MarketAccounts
+
                 };
 
                 var jsonData = AesGcm256.encrypt(JsonConvert.SerializeObject(model, _jsonSerializerSettings), EncryptionKey, EncryptionIV);
 
-                return jsonData;*/
-                return "";
+                return jsonData;
             }
             catch
             {
@@ -129,7 +148,7 @@ namespace ProjectDelta.Controllers
             return true;
         }
 
-        public static string SendDBToServer(string url, string dbText)
+        public static string SendDBToServer(string dbText, string url = URL_FOR_SENDING_DB_TO_SERVER)
         {
             try
             {
@@ -148,7 +167,7 @@ namespace ProjectDelta.Controllers
             catch { return "-1"; }
         }
 
-        public static string GetLastDBFromServer(string url)
+        public static string GetLastDBFromServer(string url = URL_FOR_GETTING_LAST_DB_FROM_SERVER)
         {
             try
             {

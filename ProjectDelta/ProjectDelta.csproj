@@ -66,6 +66,7 @@
     <Compile Include="ClassesForJSONParsing\JSON_Inventory.cs" />
     <Compile Include="Controllers\DBController.cs" />
     <Compile Include="Controllers\HTTPRequestController.cs" />
+    <Compile Include="Controllers\ManifestSteamAccountsController.cs" />
     <Compile Include="Controllers\MarketAPIController.cs" />
     <Compile Include="Forms\ChangeLog.cs">
       <SubType>Form</SubType>
@@ -85,6 +86,7 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\InventoryItem.cs" />
     <Compile Include="Models\InventoryModel.cs" />
     <Compile Include="Program.cs" />

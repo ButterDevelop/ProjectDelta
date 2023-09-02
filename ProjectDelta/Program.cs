@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 using ProjectDelta.Forms;
 using ProjectDelta.Controllers;
+using System.IO;
 
 namespace ProjectDelta
 {
@@ -53,6 +54,13 @@ namespace ProjectDelta
             if (!DBController.LoadData())
             {
                 MessageBox.Show("The database was not loaded or was empty.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            string maFilesFolderPath = Properties.Settings.Default.MAFilesPath;
+            if (!DBController.LoadSteamAccountsData() || !Directory.Exists(maFilesFolderPath) || !File.Exists(maFilesFolderPath + "/manifest.json"))
+            {
+                MessageBox.Show("The Steam accounts were not loaded or the folder is empty.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);
             }
 
             Application.Run(new MainForm());
