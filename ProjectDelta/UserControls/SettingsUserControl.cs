@@ -1,4 +1,5 @@
-﻿using SteamAuth;
+﻿using ProjectDelta.Controllers;
+using SteamAuth;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,9 +52,9 @@ namespace ProjectDelta.UserControls
             MessageBox.Show("Your settings were saved successfully!", "Saved settings!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void buttonAddSellerAccount_Click(object sender, EventArgs e)
+        private void buttonAddMarketAccount_Click(object sender, EventArgs e)
         {
-            var item = textBoxSteamIDSellersAccounts.Text;
+            var item = textBoxSteamIDMarketAccounts.Text;
 
             if (item.Length == 0)
             {
@@ -61,30 +62,76 @@ namespace ProjectDelta.UserControls
                 return;
             }            
 
-            if (listBoxSellersAccounts.Items.Contains(item))
+            if (listBoxMarketAccounts.Items.Contains(item))
             {
                 MessageBox.Show("The list already contains this SteamID64!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            listBoxSellersAccounts.Items.Add(item);
-            textBoxSteamIDSellersAccounts.Text = "";
-            listBoxSellersAccounts.Refresh();
+            listBoxMarketAccounts.Items.Add(item);
+            textBoxSteamIDMarketAccounts.Text = "";
+            listBoxMarketAccounts.Refresh();
+
+            DBController.MarketAccountsSteamIDs.Add(item);
 
             MessageBox.Show("The element was added successfully.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void buttonDeleteChosenSellerAccount_Click(object sender, EventArgs e)
+        private void buttonDeleteChosenMarketAccount_Click(object sender, EventArgs e)
         {
-            if (listBoxSellersAccounts.SelectedItem as string == null)
+            if (listBoxMarketAccounts.SelectedItem as string == null)
             {
                 MessageBox.Show("No element was chosen!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var item = listBoxSellersAccounts.SelectedItem as string;
-            listBoxSellersAccounts.Items.Remove(item);
-            listBoxSellersAccounts.Refresh();
+            var item = listBoxMarketAccounts.SelectedItem as string;
+            listBoxMarketAccounts.Items.Remove(item);
+            listBoxMarketAccounts.Refresh();
+
+            DBController.MarketAccountsSteamIDs.Remove(item);
+
+            MessageBox.Show("The element was deleted successfully.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void buttonAddPlayingAccount_Click(object sender, EventArgs e)
+        {
+            var item = textBoxSteamIDPlayingAccounts.Text;
+
+            if (item.Length == 0)
+            {
+                MessageBox.Show("Your SteamID64 field is empty!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (listBoxPlayingAccounts.Items.Contains(item))
+            {
+                MessageBox.Show("The list already contains this SteamID64!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            listBoxPlayingAccounts.Items.Add(item);
+            textBoxSteamIDPlayingAccounts.Text = "";
+            listBoxPlayingAccounts.Refresh();
+
+            DBController.PlayingAccountsSteamIDs.Add(item);
+
+            MessageBox.Show("The element was added successfully.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void buttonDeleteChosenPlayingAccount_Click(object sender, EventArgs e)
+        {
+            if (listBoxPlayingAccounts.SelectedItem as string == null)
+            {
+                MessageBox.Show("No element was chosen!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var item = listBoxPlayingAccounts.SelectedItem as string;
+            listBoxPlayingAccounts.Items.Remove(item);
+            listBoxPlayingAccounts.Refresh();
+
+            DBController.PlayingAccountsSteamIDs.Remove(item);
 
             MessageBox.Show("The element was deleted successfully.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

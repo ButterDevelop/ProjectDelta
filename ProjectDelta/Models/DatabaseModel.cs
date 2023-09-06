@@ -12,5 +12,7 @@ namespace ProjectDelta.Models
         public Dictionary<string, SteamGuardAccount> PlayingAccounts { get; set; }
         public Dictionary<string, SteamGuardAccount> BufferAccounts { get; set; }
         public Dictionary<string, SteamGuardAccount> MarketAccounts { get; set; }
+        public List<string> PlayingAccountsSteamIDs { get; set; }
+        public List<string> MarketAccountsSteamIDs { get; set; }
     }
 }

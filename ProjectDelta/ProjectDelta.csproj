@@ -42,8 +42,9 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SteamAuth, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SteamAuth.3.0.0\lib\net45\SteamAuth.dll</HintPath>
+    <Reference Include="SteamAuth, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SteamAuth.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,7 +67,7 @@
     <Compile Include="ClassesForJSONParsing\JSON_Inventory.cs" />
     <Compile Include="Controllers\DBController.cs" />
     <Compile Include="Controllers\HTTPRequestController.cs" />
-    <Compile Include="Controllers\ManifestSteamAccountsController.cs" />
+    <Compile Include="Controllers\ManifestSDAController.cs" />
     <Compile Include="Controllers\MarketAPIController.cs" />
     <Compile Include="Forms\ChangeLog.cs">
       <SubType>Form</SubType>
@@ -109,6 +110,12 @@
     <Compile Include="Tools\PreStartChecks\MutexChecker.cs" />
     <Compile Include="Tools\PreStartChecks\UpdateChecker.cs" />
     <Compile Include="Tools\WindowsKey.cs" />
+    <Compile Include="UserControls\AutoMarketUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AutoMarketUserControl.Designer.cs">
+      <DependentUpon>AutoMarketUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SettingsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -143,8 +150,14 @@
     <EmbeddedResource Include="Forms\ShowKey.resx">
       <DependentUpon>ShowKey.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AutoMarketUserControl.resx">
+      <DependentUpon>AutoMarketUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SettingsUserControl.resx">
       <DependentUpon>SettingsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -10,7 +10,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using xNet;
 
 namespace ProjectDelta.Controllers
@@ -20,12 +22,16 @@ namespace ProjectDelta.Controllers
         public static Dictionary<string, SteamGuardAccount> PlayingAccounts = new Dictionary<string, SteamGuardAccount>();
         public static Dictionary<string, SteamGuardAccount> BufferAccounts = new Dictionary<string, SteamGuardAccount>();
         public static Dictionary<string, SteamGuardAccount> MarketAccounts = new Dictionary<string, SteamGuardAccount>();
+        public static List<string> PlayingAccountsSteamIDs = new List<string>();
+        public static List<string> MarketAccountsSteamIDs = new List<string>();
 
-        private static readonly string MA_FILES_PASSKEY = B64X.Encrypt("Qwertyzxc321678");
+        internal static readonly string MA_FILES_PASSKEY = B64X.Encrypt("Qwertyzxc321678");
         private static readonly string ENCRYPTION_KEY_PATH = B64X.Encrypt("TranslationProperties.dll");
         private static readonly string DB_FILE_PATH = "deltaDB.json";
+        private static readonly int SAVE_REFRESH_RATE_MS = 1000;
         private const string URL_FOR_GETTING_LAST_DB_FROM_SERVER = "http://a116901.hostde27.fornex.host/delta/license/retrieveSyncDB.php";
         private const string URL_FOR_SENDING_DB_TO_SERVER = "http://a116901.hostde27.fornex.host/delta/license/insertSyncDB.php";
+        private static string OldDBString = "";
         private static byte[] EncryptionKey;
         private static byte[] EncryptionIV;
 
@@ -40,6 +46,37 @@ namespace ProjectDelta.Controllers
         {
             File.WriteAllText(B64X.Decrypt(ENCRYPTION_KEY_PATH), Convert.ToBase64String(AesGcm256.NewKey()) + Environment.NewLine);
             File.AppendAllText(B64X.Decrypt(ENCRYPTION_KEY_PATH), Convert.ToBase64String(AesGcm256.NewIv()));
+        }
+
+        public static void SaveWithCheck()
+        {
+            while (true)
+            {
+                string newDBString = GenerateDataForSaving();
+                if (newDBString != OldDBString)
+                {
+                    SaveJSON();
+                    OldDBString = newDBString;
+                }
+
+                Thread.Sleep(SAVE_REFRESH_RATE_MS);
+            }
+        }
+
+        public static bool SaveJSON()
+        {
+            try
+            {
+                var json = GenerateDataForSaving();
+                if (json == "-1") return false;
+                File.WriteAllText(DB_FILE_PATH, AesGcm256.encrypt(json, EncryptionKey, EncryptionIV));
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public static string GetDataForLoading()
@@ -65,6 +102,8 @@ namespace ProjectDelta.Controllers
                 PlayingAccounts = deserialized.PlayingAccounts;
                 BufferAccounts = deserialized.BufferAccounts;
                 MarketAccounts = deserialized.MarketAccounts;
+                PlayingAccountsSteamIDs = deserialized.PlayingAccountsSteamIDs;
+                MarketAccountsSteamIDs = deserialized.MarketAccountsSteamIDs;
 
                 return true;
             }
@@ -78,13 +117,29 @@ namespace ProjectDelta.Controllers
         {
             try
             {
-                ManifestSteamAccountsController.Manifest = ManifestSteamAccountsController.GetManifest();
-                Dictionary<string, SteamGuardAccount> allAccounts = ManifestSteamAccountsController.Manifest.GetAllAccounts(B64X.Decrypt(MA_FILES_PASSKEY));
+                ManifestSDAController manifest = ManifestSDAController.GetManifest();
+                Dictionary<string, SteamGuardAccount> allAccounts = manifest.GetAllAccounts(B64X.Decrypt(MA_FILES_PASSKEY));
 
+                foreach (var account in allAccounts)
+                {
+                    if (PlayingAccountsSteamIDs.Contains(account.Key))
+                    {
+                        PlayingAccounts.Add(account.Key, allAccounts[account.Key]);
+                    }
+                    else
+                    if (MarketAccountsSteamIDs.Contains(account.Key))
+                    {
+                        MarketAccounts.Add(account.Key, allAccounts[account.Key]);
+                    }
+                    else
+                    {
+                        BufferAccounts.Add(account.Key, allAccounts[account.Key]);
+                    }
+                }
 
                 return true;
             }
-            catch
+            catch (Exception)
             {
                 return false;
             }
@@ -98,8 +153,9 @@ namespace ProjectDelta.Controllers
                 {
                     PlayingAccounts = DBController.PlayingAccounts,
                     BufferAccounts = DBController.BufferAccounts,
-                    MarketAccounts = DBController.MarketAccounts
-
+                    MarketAccounts = DBController.MarketAccounts,
+                    PlayingAccountsSteamIDs = DBController.PlayingAccountsSteamIDs,
+                    MarketAccountsSteamIDs = DBController.MarketAccountsSteamIDs
                 };
 
                 var jsonData = AesGcm256.encrypt(JsonConvert.SerializeObject(model, _jsonSerializerSettings), EncryptionKey, EncryptionIV);

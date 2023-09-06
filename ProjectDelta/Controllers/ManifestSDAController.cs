@@ -26,7 +26,7 @@ namespace ProjectDelta.Controllers
         public ulong SteamID { get; set; }
     }
 
-    internal class ManifestSteamAccountsController
+    internal class ManifestSDAController
     {
         [JsonProperty("encrypted")]
         public bool Encrypted { get; set; }
@@ -53,7 +53,7 @@ namespace ProjectDelta.Controllers
         public bool AutoConfirmTrades { get; set; } = false;
 
 
-        public static ManifestSteamAccountsController Manifest { get; set; }
+        public static ManifestSDAController Manifest { get; set; }
 
         private static string GetManifestDir()
         {
@@ -63,12 +63,12 @@ namespace ProjectDelta.Controllers
         public Dictionary<string, SteamGuardAccount> GetAllAccounts(string passKey = null, int limit = -1)
         {
             if (passKey == null && this.Encrypted) return null;
-            string maDir = GetManifestDir() + "/maFiles/";
+            string maDir = GetManifestDir();
 
             Dictionary<string, SteamGuardAccount> accounts = new Dictionary<string, SteamGuardAccount>();
             foreach (var entry in this.Entries)
             {
-                string fileText = File.ReadAllText(maDir + entry.Filename);
+                string fileText = File.ReadAllText(Path.Combine(maDir, entry.Filename));
                 if (this.Encrypted)
                 { 
                     string decryptedText = FileEncryptor.DecryptData(passKey, entry.Salt, entry.IV, fileText);
@@ -87,7 +87,7 @@ namespace ProjectDelta.Controllers
             return accounts;
         }
 
-        public static ManifestSteamAccountsController GetManifest(bool forceLoad = false)
+        public static ManifestSDAController GetManifest(bool forceLoad = false)
         {
             // Check if already staticly loaded
             if (Manifest != null && !forceLoad)
@@ -96,8 +96,8 @@ namespace ProjectDelta.Controllers
             }
 
             // Find config dir and manifest file
-            string maDir = GetManifestDir() + "/maFiles/";
-            string maFile = maDir + "manifest.json";
+            string maDir = GetManifestDir();
+            string maFile = Path.Combine(maDir, "manifest.json");
 
             // If there's no config dir, than we can't continue
             if (!Directory.Exists(maDir)) return null;
@@ -107,7 +107,7 @@ namespace ProjectDelta.Controllers
             try
             {
                 string manifestContents = File.ReadAllText(maFile);
-                Manifest = JsonConvert.DeserializeObject<ManifestSteamAccountsController>(manifestContents);
+                Manifest = JsonConvert.DeserializeObject<ManifestSDAController>(manifestContents);
 
                 return Manifest;
             }
@@ -123,6 +123,129 @@ namespace ProjectDelta.Controllers
 
             var accounts = this.GetAllAccounts(passkey, 1);
             return accounts != null && accounts.Count == 1;
+        }
+
+        public bool RemoveAccount(SteamGuardAccount account, bool deleteMaFile = true)
+        {
+            ManifestEntry entry = (from e in this.Entries where e.SteamID == account.Session.SteamID select e).FirstOrDefault();
+            if (entry == null) return true; // If something never existed, did you do what they asked?
+
+            string maDir = GetManifestDir();
+            string filename = Path.Combine(maDir, entry.Filename);
+            this.Entries.Remove(entry);
+
+            if (this.Entries.Count == 0)
+            {
+                this.Encrypted = false;
+            }
+
+            if (this.Save() && deleteMaFile)
+            {
+                try
+                {
+                    File.Delete(filename);
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        public bool SaveAccount(SteamGuardAccount account, bool encrypt, string passKey = null)
+        {
+            if (encrypt && string.IsNullOrEmpty(passKey)) return false;
+            if (!encrypt && this.Encrypted) return false;
+
+            string salt = null;
+            string iV = null;
+            string jsonAccount = JsonConvert.SerializeObject(account);
+
+            if (encrypt)
+            {
+                salt = FileEncryptor.GetRandomSalt();
+                iV = FileEncryptor.GetInitializationVector();
+                string encrypted = FileEncryptor.EncryptData(passKey, salt, iV, jsonAccount);
+                if (encrypted == null) return false;
+                jsonAccount = encrypted;
+            }
+
+            string maDir = GetManifestDir();
+            string filename = account.Session.SteamID.ToString() + ".maFile";
+
+            ManifestEntry newEntry = new ManifestEntry()
+            {
+                SteamID = account.Session.SteamID,
+                IV = iV,
+                Salt = salt,
+                Filename = filename
+            };
+
+            bool foundExistingEntry = false;
+            for (int i = 0; i < this.Entries.Count; i++)
+            {
+                if (this.Entries[i].SteamID == account.Session.SteamID)
+                {
+                    this.Entries[i] = newEntry;
+                    foundExistingEntry = true;
+                    break;
+                }
+            }
+
+            if (!foundExistingEntry)
+            {
+                this.Entries.Add(newEntry);
+            }
+
+            bool wasEncrypted = this.Encrypted;
+            this.Encrypted = encrypt || this.Encrypted;
+
+            if (!this.Save())
+            {
+                this.Encrypted = wasEncrypted;
+                return false;
+            }
+
+            try
+            {
+                File.WriteAllText(Path.Combine(maDir, filename), jsonAccount);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool Save()
+        {
+            string maDir = GetManifestDir();
+            string filename = Path.Combine(maDir, "manifest.json");
+            if (!Directory.Exists(maDir))
+            {
+                try
+                {
+                    Directory.CreateDirectory(maDir);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            try
+            {
+                string contents = JsonConvert.SerializeObject(this);
+                File.WriteAllText(filename, contents);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 
