@@ -1,5 +1,6 @@
 ﻿using ProjectDelta.Controllers;
 using ProjectDelta.Tools;
+using SteamAuth;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,8 @@ namespace ProjectDelta.UserControls
         public UserControl1()
         {
             InitializeComponent();
+
+            foreach (var item in DBController.BufferAccounts) listBox1.Items.Add(item.Value.AccountName);
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -31,6 +34,8 @@ namespace ProjectDelta.UserControls
                 }
 
                 MessageBox.Show(account.Session.IsRefreshTokenExpired().ToString() + " " + account.Session.IsAccessTokenExpired().ToString());
+
+                textBoxSteamID.Text = account.Session.SteamID.ToString();
 
                 if (account.Session.IsAccessTokenExpired())
                 {
@@ -47,7 +52,10 @@ namespace ProjectDelta.UserControls
                 var confirmations = await account.FetchConfirmationsAsync();
 
                 MessageBox.Show(confirmations.Length.ToString()); // Length: "0"
-            } 
+
+                //account.AcceptConfirmation();
+                // nVxAiEcG9LR6Xl6a7yOTZdvEg6ck802
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());

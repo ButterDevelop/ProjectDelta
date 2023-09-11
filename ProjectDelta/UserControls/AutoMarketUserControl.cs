@@ -13,6 +13,8 @@ namespace ProjectDelta.UserControls
 {
     public partial class AutoMarketUserControl : UserControl
     {
+        internal List<AccountInfoPanelUserControl> panels = new List<AccountInfoPanelUserControl>();
+
         public AutoMarketUserControl()
         {
             InitializeComponent();
@@ -23,6 +25,28 @@ namespace ProjectDelta.UserControls
             {
                 this.Visible = false;
             }
+
+            int counter = 0;
+            foreach (var account in DBController.MarketAccounts)
+            {
+                string steamId = account.Key;
+
+                var profile = DBController.SteamWebProfiles.FirstOrDefault(a => a.SteamId == steamId);
+                if (profile == null) continue;
+
+                string accountNickname = profile.Nickname;
+                Image avatar = profile.FullAvatarImage;
+
+                string accountLogin = account.Value.AccountName;
+                string accountType = "Market account";
+                string marketApiKey = DBController.MarketAccountsAPIKeys[steamId];
+
+                panels.Add(new AccountInfoPanelUserControl(avatar, accountNickname, accountLogin, steamId, accountType, marketApiKey));
+
+                ++counter;
+            }
+
+            foreach (var panel in panels) flowLayoutPanelAutoMarket.Controls.Add(panel);
         }
     }
 }

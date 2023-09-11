@@ -64,16 +64,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassesForJSONParsing\JSON_Inventory.cs" />
+    <Compile Include="ClassesForXMLandJSONParsing\JSON_Inventory.cs" />
+    <Compile Include="ClassesForXMLandJSONParsing\XML_SteamWebProfile.cs" />
     <Compile Include="Controllers\DBController.cs" />
     <Compile Include="Controllers\HTTPRequestController.cs" />
     <Compile Include="Controllers\ManifestSDAController.cs" />
     <Compile Include="Controllers\MarketAPIController.cs" />
+    <Compile Include="Controllers\SteamWebProfileController.cs" />
     <Compile Include="Forms\ChangeLog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ChangeLog.Designer.cs">
       <DependentUpon>ChangeLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InitializingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InitializingForm.Designer.cs">
+      <DependentUpon>InitializingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CheckLicenseForm.cs">
       <SubType>Form</SubType>
@@ -110,6 +118,12 @@
     <Compile Include="Tools\PreStartChecks\MutexChecker.cs" />
     <Compile Include="Tools\PreStartChecks\UpdateChecker.cs" />
     <Compile Include="Tools\WindowsKey.cs" />
+    <Compile Include="UserControls\AccountInfoPanelUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AccountInfoPanelUserControl.Designer.cs">
+      <DependentUpon>AccountInfoPanelUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AutoMarketUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -131,6 +145,9 @@
     <EmbeddedResource Include="Forms\ChangeLog.resx">
       <DependentUpon>ChangeLog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InitializingForm.resx">
+      <DependentUpon>InitializingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CheckLicenseForm.resx">
       <DependentUpon>CheckLicenseForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -149,6 +166,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\ShowKey.resx">
       <DependentUpon>ShowKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AccountInfoPanelUserControl.resx">
+      <DependentUpon>AccountInfoPanelUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\AutoMarketUserControl.resx">
       <DependentUpon>AutoMarketUserControl.cs</DependentUpon>

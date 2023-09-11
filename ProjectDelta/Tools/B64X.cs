@@ -55,7 +55,7 @@ namespace ProjectDelta.Tools
                 }
 
                 return bytes;
-            } catch(Exception e) { /*System.Windows.Forms.MessageBox.Show(e.ToString());*/ return bytes; }
+            } catch { return bytes; }
         }
     }
 }

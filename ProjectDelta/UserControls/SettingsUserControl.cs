@@ -23,6 +23,38 @@ namespace ProjectDelta.UserControls
 
             MAFilesPath = Properties.Settings.Default.MAFilesPath;
             textBoxMAFilesPath.Text = MAFilesPath;
+
+            //Set data from the db to the correct fields
+            foreach (var marketAccountSteamId in DBController.MarketAccountsSteamIDs)
+            {
+                listBoxMarketAccounts.Items.Add(marketAccountSteamId);
+                var marketApiKey = DBController.MarketAccountsAPIKeys[marketAccountSteamId];
+                listBoxMarketAPIKeys.Items.Add(MarketAPIController.GetCensoredAPIKeyString(marketApiKey));
+            }
+            foreach (var playingAccountSteamId in DBController.PlayingAccountsSteamIDs)
+            {
+                listBoxPlayingAccounts.Items.Add(playingAccountSteamId);
+            }
+
+            listBoxMarketAccounts.SelectedIndexChanged += listBoxMarketAccounts_SelectedIndexChanged;
+            listBoxMarketAPIKeys.SelectedIndexChanged += listBoxMarketAPIKeys_SelectedIndexChanged;
+        }
+
+        private void listBoxMarketAccounts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxMarketAccounts.SelectedItem is null) return;
+
+            var index = listBoxMarketAccounts.SelectedIndex;
+            listBoxMarketAPIKeys.SelectedIndex = index;
+            listBoxMarketAPIKeys.Refresh();
+        }
+        private void listBoxMarketAPIKeys_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxMarketAPIKeys.SelectedItem is null) return;
+
+            var index = listBoxMarketAPIKeys.SelectedIndex;
+            listBoxMarketAccounts.SelectedIndex = index;
+            listBoxMarketAccounts.Refresh();
         }
 
         private void buttonMAFilesPath_Click(object sender, EventArgs e)
@@ -54,42 +86,75 @@ namespace ProjectDelta.UserControls
 
         private void buttonAddMarketAccount_Click(object sender, EventArgs e)
         {
-            var item = textBoxSteamIDMarketAccounts.Text;
+            var steamId = textBoxSteamIDMarketAccounts.Text;
+            var apiKey = textBoxAPIKeyMarketAccounts.Text;
 
-            if (item.Length == 0)
+            if (steamId.Length == 0)
             {
                 MessageBox.Show("Your SteamID64 field is empty!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }            
-
-            if (listBoxMarketAccounts.Items.Contains(item))
+            if (!steamId.StartsWith("765") || steamId.Length != 17)
+            {
+                MessageBox.Show("The SteamID64 you have specified seems incorrect!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (listBoxMarketAccounts.Items.Contains(steamId))
             {
                 MessageBox.Show("The list already contains this SteamID64!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            listBoxMarketAccounts.Items.Add(item);
-            textBoxSteamIDMarketAccounts.Text = "";
-            listBoxMarketAccounts.Refresh();
+            if (apiKey.Length == 0)
+            {
+                MessageBox.Show("Your Market API key field is empty!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (apiKey.Length != 31)
+            {
+                MessageBox.Show("The Market API key you have specified seems incorrect!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (listBoxMarketAPIKeys.Items.Contains(apiKey))
+            {
+                MessageBox.Show("The list already contains this Market API key!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            DBController.MarketAccountsSteamIDs.Add(item);
+            listBoxMarketAccounts.Items.Add(steamId);
+            listBoxMarketAPIKeys.Items.Add(MarketAPIController.GetCensoredAPIKeyString(apiKey));
+            textBoxSteamIDMarketAccounts.Text = "";
+            textBoxAPIKeyMarketAccounts.Text = "";
+            listBoxMarketAccounts.Refresh();
+            listBoxMarketAPIKeys.Refresh();
+
+            DBController.MarketAccountsSteamIDs.Add(steamId);
+            DBController.MarketAccountsAPIKeys.Add(steamId, apiKey);
 
             MessageBox.Show("The element was added successfully.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void buttonDeleteChosenMarketAccount_Click(object sender, EventArgs e)
         {
+            var dialogResult = MessageBox.Show("Are you sure you want to delete this element?", "Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.No) return;
+
             if (listBoxMarketAccounts.SelectedItem as string == null)
             {
                 MessageBox.Show("No element was chosen!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var item = listBoxMarketAccounts.SelectedItem as string;
-            listBoxMarketAccounts.Items.Remove(item);
+            var index = listBoxMarketAPIKeys.SelectedIndex;
+            var steamId = listBoxMarketAccounts.SelectedItem as string;
+            var apiKey = DBController.MarketAccountsAPIKeys[steamId];
+            listBoxMarketAccounts.Items.Remove(steamId);
             listBoxMarketAccounts.Refresh();
+            listBoxMarketAPIKeys.Items.RemoveAt(index);
+            listBoxMarketAPIKeys.Refresh();
 
-            DBController.MarketAccountsSteamIDs.Remove(item);
+            DBController.MarketAccountsSteamIDs.Remove(steamId);
+            DBController.MarketAccountsAPIKeys.Remove(apiKey);
 
             MessageBox.Show("The element was deleted successfully.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

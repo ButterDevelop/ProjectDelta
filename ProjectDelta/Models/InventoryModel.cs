@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using ProjectDelta.ClassesForJSONParsing;
+using ProjectDelta.ClassesForJSONandXMLParsing;
 using ProjectDelta.Controllers;
 using System;
 using System.Collections.Generic;

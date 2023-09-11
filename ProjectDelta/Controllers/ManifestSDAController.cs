@@ -97,7 +97,7 @@ namespace ProjectDelta.Controllers
 
             // Find config dir and manifest file
             string maDir = GetManifestDir();
-            string maFile = Path.Combine(maDir, "manifest.json");
+            string maFile = Path.Combine(maDir, DBController.MA_MANIFEST_FILE_NAME);
 
             // If there's no config dir, than we can't continue
             if (!Directory.Exists(maDir)) return null;
@@ -223,7 +223,7 @@ namespace ProjectDelta.Controllers
         public bool Save()
         {
             string maDir = GetManifestDir();
-            string filename = Path.Combine(maDir, "manifest.json");
+            string filename = Path.Combine(maDir, DBController.MA_MANIFEST_FILE_NAME);
             if (!Directory.Exists(maDir))
             {
                 try

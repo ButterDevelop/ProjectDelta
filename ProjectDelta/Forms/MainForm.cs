@@ -25,8 +25,12 @@ namespace ProjectDelta.Forms
             this.FormClosing += MainForm_FormClosing;
 
             tabPageAutoMarket.Controls.Add(autoMarketUserControl);
-            tabPage1.Controls.Add(userControl1);
+            tabPageTest.Controls.Add(userControl1);
             tabPageSettings.Controls.Add(settingsUserControl);
+
+            autoMarketUserControl.BringToFront();
+            userControl1.BringToFront();
+            settingsUserControl.BringToFront();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

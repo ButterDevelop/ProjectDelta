@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectDelta.ClassesForJSONParsing
+namespace ProjectDelta.ClassesForJSONandXMLParsing
 {
-    internal class JSON_Inventory
+    public class JSON_Inventory
     {
         public class Action
         {

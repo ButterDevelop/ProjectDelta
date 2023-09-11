@@ -1,11 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using xNet;
 
 namespace ProjectDelta.Controllers
@@ -41,7 +44,8 @@ namespace ProjectDelta.Controllers
             return true;
         }
 
-        public static string SendRequest(string url, RequestType type, Dictionary<string, string> headers = null, Dictionary<string, string> parameters = null)
+        public static string SendRequest(string url, RequestType type, Dictionary<string, string> headers = null, Dictionary<string, string> parameters = null,
+                                         int connectTimeoutMs = 1000)
         {
             try
             {
@@ -50,7 +54,7 @@ namespace ProjectDelta.Controllers
                 {
                     request.SslCertificateValidatorCallback += ServerCertificateValidationCallback;
                     request.IgnoreProtocolErrors = true;
-                    request.ConnectTimeout = 1000;
+                    request.ConnectTimeout = connectTimeoutMs;
 
                     request.UserAgent = GetRandomUserAgent();
                     request.KeepAlive = true;
@@ -87,6 +91,41 @@ namespace ProjectDelta.Controllers
                     return html;
                 }
             } catch
+            {
+                return null;
+            }
+        }
+
+        public static Image DownloadImageFromURL(string imageUrl, int connectTimeoutMs = 1000)
+        {
+            try
+            {
+                using (HttpRequest request = new HttpRequest())
+                {
+                    request.SslCertificateValidatorCallback += ServerCertificateValidationCallback;
+                    request.IgnoreProtocolErrors = true;
+                    request.ConnectTimeout = connectTimeoutMs;
+                    request.UserAgent = GetRandomUserAgent();
+
+                    HttpResponse response = request.Get(imageUrl);
+
+                    if (response.IsOK)
+                    {
+                        byte[] imageBytes = response.ToBytes();
+
+                        using (MemoryStream ms = new MemoryStream(imageBytes))
+                        {
+                            Image image = Image.FromStream(ms);
+                            return image;
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch
             {
                 return null;
             }

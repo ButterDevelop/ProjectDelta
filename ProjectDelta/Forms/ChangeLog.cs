@@ -49,9 +49,8 @@ namespace ProjectDelta.Forms
                 Hide();
 
                 DownloadAndInstall();
-            } catch(Exception ex)
+            } catch
             {
-                //File.AppendAllText(Path.Combine(Environment.CurrentDirectory, "RandomRofl.log"), MCrypt.Encrypt(Environment.NewLine + "blablabla" + B64X.Encrypt("katysa") + Environment.NewLine + ex.ToString() + Environment.NewLine), System.Text.Encoding.UTF8);
                 MessageBox.Show("Unable to update the app!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }

@@ -19,12 +19,18 @@ namespace ProjectDelta.Controllers
 {
     internal class DBController
     {
+        //DB
+        public static List<string> PlayingAccountsSteamIDs = new List<string>();
+        public static List<string> MarketAccountsSteamIDs = new List<string>();
+        public static Dictionary<string, string> MarketAccountsAPIKeys = new Dictionary<string, string>();
+        public static List<SteamWebProfileController> SteamWebProfiles = new List<SteamWebProfileController>();
+
+        //Other variables
         public static Dictionary<string, SteamGuardAccount> PlayingAccounts = new Dictionary<string, SteamGuardAccount>();
         public static Dictionary<string, SteamGuardAccount> BufferAccounts = new Dictionary<string, SteamGuardAccount>();
         public static Dictionary<string, SteamGuardAccount> MarketAccounts = new Dictionary<string, SteamGuardAccount>();
-        public static List<string> PlayingAccountsSteamIDs = new List<string>();
-        public static List<string> MarketAccountsSteamIDs = new List<string>();
 
+        internal static readonly string MA_MANIFEST_FILE_NAME = "manifest.json";
         internal static readonly string MA_FILES_PASSKEY = B64X.Encrypt("Qwertyzxc321678");
         private static readonly string ENCRYPTION_KEY_PATH = B64X.Encrypt("TranslationProperties.dll");
         private static readonly string DB_FILE_PATH = "deltaDB.json";
@@ -50,6 +56,7 @@ namespace ProjectDelta.Controllers
 
         public static void SaveWithCheck()
         {
+            OldDBString = GenerateDataForSaving();
             while (true)
             {
                 string newDBString = GenerateDataForSaving();
@@ -96,14 +103,16 @@ namespace ProjectDelta.Controllers
             {
                 string data = GetDataForLoading();
                 if (data == "-1") return false;
-                
-                DatabaseModel deserialized = JsonConvert.DeserializeObject<DatabaseModel>(B64X.Decrypt(data));
 
-                PlayingAccounts = deserialized.PlayingAccounts;
-                BufferAccounts = deserialized.BufferAccounts;
-                MarketAccounts = deserialized.MarketAccounts;
+                DatabaseModel deserialized = JsonConvert.DeserializeObject<DatabaseModel>(AesGcm256.decrypt(B64X.Decrypt(data), EncryptionKey, EncryptionIV));
+
+                //PlayingAccounts = deserialized.PlayingAccounts;
+                //BufferAccounts = deserialized.BufferAccounts;
+                //MarketAccounts = deserialized.MarketAccounts;
                 PlayingAccountsSteamIDs = deserialized.PlayingAccountsSteamIDs;
                 MarketAccountsSteamIDs = deserialized.MarketAccountsSteamIDs;
+                MarketAccountsAPIKeys = deserialized.MarketAccountsAPIKeys;
+                SteamWebProfiles = deserialized.SteamWebProfiles;
 
                 return true;
             }
@@ -124,22 +133,59 @@ namespace ProjectDelta.Controllers
                 {
                     if (PlayingAccountsSteamIDs.Contains(account.Key))
                     {
-                        PlayingAccounts.Add(account.Key, allAccounts[account.Key]);
+                        PlayingAccounts.Add(account.Key, account.Value);
                     }
                     else
                     if (MarketAccountsSteamIDs.Contains(account.Key))
                     {
-                        MarketAccounts.Add(account.Key, allAccounts[account.Key]);
+                        MarketAccounts.Add(account.Key, account.Value);
                     }
                     else
                     {
-                        BufferAccounts.Add(account.Key, allAccounts[account.Key]);
+                        BufferAccounts.Add(account.Key, account.Value);
                     }
                 }
 
                 return true;
             }
-            catch (Exception)
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool LoadSteamWebProfiles()
+        {
+            try
+            {
+                List<string> steamIDs = new List<string>();
+                foreach (var account in MarketAccounts) steamIDs.Add(account.Key);
+                foreach (var account in PlayingAccounts) steamIDs.Add(account.Key);
+                foreach (var account in BufferAccounts) steamIDs.Add(account.Key);
+                steamIDs = steamIDs.Distinct().ToList();
+
+                // There can be a case when the database is empty, and then SteamWebProfiles will be null instead of 0-length (or empty) array
+                if (SteamWebProfiles == null)
+                {
+                    SteamWebProfiles = new List<SteamWebProfileController>();
+                }
+
+                foreach (var accountSteamId in steamIDs)
+                {
+                    var profile = SteamWebProfiles.FirstOrDefault(a => a.SteamId == accountSteamId);
+                    if (profile == null)
+                    {
+                        SteamWebProfiles.Add(new SteamWebProfileController(accountSteamId));
+                    }
+                    else
+                    {
+                        profile.RefreshData();
+                    }
+                }
+
+                return true;
+            }
+            catch
             {
                 return false;
             }
@@ -151,11 +197,13 @@ namespace ProjectDelta.Controllers
             {
                 DatabaseModel model = new DatabaseModel()
                 {
-                    PlayingAccounts = DBController.PlayingAccounts,
-                    BufferAccounts = DBController.BufferAccounts,
-                    MarketAccounts = DBController.MarketAccounts,
+                    //PlayingAccounts = DBController.PlayingAccounts,
+                    //BufferAccounts = DBController.BufferAccounts,
+                    //MarketAccounts = DBController.MarketAccounts,
                     PlayingAccountsSteamIDs = DBController.PlayingAccountsSteamIDs,
-                    MarketAccountsSteamIDs = DBController.MarketAccountsSteamIDs
+                    MarketAccountsSteamIDs = DBController.MarketAccountsSteamIDs,
+                    MarketAccountsAPIKeys = DBController.MarketAccountsAPIKeys,
+                    SteamWebProfiles = DBController.SteamWebProfiles
                 };
 
                 var jsonData = AesGcm256.encrypt(JsonConvert.SerializeObject(model, _jsonSerializerSettings), EncryptionKey, EncryptionIV);

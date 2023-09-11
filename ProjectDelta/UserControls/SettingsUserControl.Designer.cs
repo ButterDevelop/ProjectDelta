@@ -35,6 +35,9 @@
             this.buttonSaveSettings = new System.Windows.Forms.Button();
             this.listBoxMarketAccounts = new System.Windows.Forms.ListBox();
             this.groupBoxMarketAccounts = new System.Windows.Forms.GroupBox();
+            this.labelMarketAccountsAPI = new System.Windows.Forms.Label();
+            this.textBoxAPIKeyMarketAccounts = new System.Windows.Forms.TextBox();
+            this.listBoxMarketAPIKeys = new System.Windows.Forms.ListBox();
             this.labelMarketAccountArrow = new System.Windows.Forms.Label();
             this.labelMarketAccounts = new System.Windows.Forms.Label();
             this.buttonDeleteChosenMarketAccount = new System.Windows.Forms.Button();
@@ -116,16 +119,19 @@
             // 
             // listBoxMarketAccounts
             // 
-            this.listBoxMarketAccounts.BackColor = System.Drawing.Color.MintCream;
+            this.listBoxMarketAccounts.BackColor = System.Drawing.SystemColors.Window;
             this.listBoxMarketAccounts.FormattingEnabled = true;
             this.listBoxMarketAccounts.ItemHeight = 25;
             this.listBoxMarketAccounts.Location = new System.Drawing.Point(395, 30);
             this.listBoxMarketAccounts.Name = "listBoxMarketAccounts";
-            this.listBoxMarketAccounts.Size = new System.Drawing.Size(219, 154);
+            this.listBoxMarketAccounts.Size = new System.Drawing.Size(219, 79);
             this.listBoxMarketAccounts.TabIndex = 5;
             // 
             // groupBoxMarketAccounts
             // 
+            this.groupBoxMarketAccounts.Controls.Add(this.labelMarketAccountsAPI);
+            this.groupBoxMarketAccounts.Controls.Add(this.textBoxAPIKeyMarketAccounts);
+            this.groupBoxMarketAccounts.Controls.Add(this.listBoxMarketAPIKeys);
             this.groupBoxMarketAccounts.Controls.Add(this.labelMarketAccountArrow);
             this.groupBoxMarketAccounts.Controls.Add(this.labelMarketAccounts);
             this.groupBoxMarketAccounts.Controls.Add(this.buttonDeleteChosenMarketAccount);
@@ -140,6 +146,35 @@
             this.groupBoxMarketAccounts.TabIndex = 4;
             this.groupBoxMarketAccounts.TabStop = false;
             this.groupBoxMarketAccounts.Text = "Market accounts SteamID64";
+            // 
+            // labelMarketAccountsAPI
+            // 
+            this.labelMarketAccountsAPI.Location = new System.Drawing.Point(23, 88);
+            this.labelMarketAccountsAPI.Name = "labelMarketAccountsAPI";
+            this.labelMarketAccountsAPI.Size = new System.Drawing.Size(232, 28);
+            this.labelMarketAccountsAPI.TabIndex = 11;
+            this.labelMarketAccountsAPI.Text = "Market API key:";
+            this.labelMarketAccountsAPI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxAPIKeyMarketAccounts
+            // 
+            this.textBoxAPIKeyMarketAccounts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxAPIKeyMarketAccounts.Location = new System.Drawing.Point(23, 120);
+            this.textBoxAPIKeyMarketAccounts.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxAPIKeyMarketAccounts.Name = "textBoxAPIKeyMarketAccounts";
+            this.textBoxAPIKeyMarketAccounts.Size = new System.Drawing.Size(232, 30);
+            this.textBoxAPIKeyMarketAccounts.TabIndex = 10;
+            this.textBoxAPIKeyMarketAccounts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // listBoxMarketAPIKeys
+            // 
+            this.listBoxMarketAPIKeys.BackColor = System.Drawing.SystemColors.Window;
+            this.listBoxMarketAPIKeys.FormattingEnabled = true;
+            this.listBoxMarketAPIKeys.ItemHeight = 25;
+            this.listBoxMarketAPIKeys.Location = new System.Drawing.Point(395, 115);
+            this.listBoxMarketAPIKeys.Name = "listBoxMarketAPIKeys";
+            this.listBoxMarketAPIKeys.Size = new System.Drawing.Size(219, 79);
+            this.listBoxMarketAPIKeys.TabIndex = 9;
             // 
             // labelMarketAccountArrow
             // 
@@ -166,10 +201,10 @@
             this.buttonDeleteChosenMarketAccount.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.buttonDeleteChosenMarketAccount.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.buttonDeleteChosenMarketAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDeleteChosenMarketAccount.Location = new System.Drawing.Point(23, 149);
+            this.buttonDeleteChosenMarketAccount.Location = new System.Drawing.Point(139, 159);
             this.buttonDeleteChosenMarketAccount.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDeleteChosenMarketAccount.Name = "buttonDeleteChosenMarketAccount";
-            this.buttonDeleteChosenMarketAccount.Size = new System.Drawing.Size(232, 35);
+            this.buttonDeleteChosenMarketAccount.Size = new System.Drawing.Size(116, 35);
             this.buttonDeleteChosenMarketAccount.TabIndex = 4;
             this.buttonDeleteChosenMarketAccount.Text = "Delete chosen SteamID";
             this.buttonDeleteChosenMarketAccount.UseVisualStyleBackColor = true;
@@ -180,12 +215,12 @@
             this.buttonAddMarketAccount.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.buttonAddMarketAccount.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.buttonAddMarketAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddMarketAccount.Location = new System.Drawing.Point(23, 104);
+            this.buttonAddMarketAccount.Location = new System.Drawing.Point(23, 159);
             this.buttonAddMarketAccount.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAddMarketAccount.Name = "buttonAddMarketAccount";
-            this.buttonAddMarketAccount.Size = new System.Drawing.Size(232, 35);
+            this.buttonAddMarketAccount.Size = new System.Drawing.Size(108, 35);
             this.buttonAddMarketAccount.TabIndex = 3;
-            this.buttonAddMarketAccount.Text = "Add this SteamID to list";
+            this.buttonAddMarketAccount.Text = "Add";
             this.buttonAddMarketAccount.UseVisualStyleBackColor = true;
             this.buttonAddMarketAccount.Click += new System.EventHandler(this.buttonAddMarketAccount_Click);
             // 
@@ -276,7 +311,7 @@
             // 
             // listBoxPlayingAccounts
             // 
-            this.listBoxPlayingAccounts.BackColor = System.Drawing.Color.MintCream;
+            this.listBoxPlayingAccounts.BackColor = System.Drawing.SystemColors.Window;
             this.listBoxPlayingAccounts.FormattingEnabled = true;
             this.listBoxPlayingAccounts.ItemHeight = 25;
             this.listBoxPlayingAccounts.Location = new System.Drawing.Point(395, 30);
@@ -290,14 +325,14 @@
             this.labelBufferAccounts.Name = "labelBufferAccounts";
             this.labelBufferAccounts.Size = new System.Drawing.Size(636, 57);
             this.labelBufferAccounts.TabIndex = 8;
-            this.labelBufferAccounts.Text = "The rest of accounts in the folder are the Buffer accounts.";
+            this.labelBufferAccounts.Text = "The rest of accounts in the folder counted as the Buffer accounts.";
             this.labelBufferAccounts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SettingsUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.MintCream;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.labelBufferAccounts);
             this.Controls.Add(this.groupBoxPlayingAccounts);
             this.Controls.Add(this.groupBoxMarketAccounts);
@@ -340,5 +375,8 @@
         private System.Windows.Forms.TextBox textBoxSteamIDPlayingAccounts;
         private System.Windows.Forms.ListBox listBoxPlayingAccounts;
         private System.Windows.Forms.Label labelBufferAccounts;
+        private System.Windows.Forms.ListBox listBoxMarketAPIKeys;
+        private System.Windows.Forms.Label labelMarketAccountsAPI;
+        private System.Windows.Forms.TextBox textBoxAPIKeyMarketAccounts;
     }
 }

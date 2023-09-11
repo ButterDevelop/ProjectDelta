@@ -24,8 +24,8 @@ namespace ProjectDelta
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("ru-RU");
-            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("ru-RU");
+            Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
             foreach (var arg in args)
             {
@@ -51,29 +51,17 @@ namespace ProjectDelta
 
             if (UpdateChecker.NewVersion() && !disableAutoUpdateCheck && !silent) Application.Run(new ChangeLog());
 
-            if (!DBController.GetEncryptionKey())
+            var initFormThread = new Thread(() => InitializingForm.StartNewInitForm());
+            InitializingForm.InitializationCompleted += () =>
             {
-                MessageBox.Show("Unable to load encryption keys!", "Project Delta: Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
-            }
-            if (!DBController.LoadData())
-            {
-                MessageBox.Show("The database was not loaded or was empty.", "Project Delta: Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                Thread.Sleep(1000);
+                // Запуск следующей формы
+                new Thread(() => DBController.SaveWithCheck()).Start();
+                Thread.Sleep(250);
+                Application.Run(new MainForm());
+            };
 
-            new Thread(() => DBController.SaveWithCheck()).Start();
-            Thread.Sleep(250);
-
-            MessageBox.Show("After you click the \"OK\" button, the accounts loading will be started. This action can take up to a few minutes.", "Project Delta: Attention please!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            string maFilesFolderPath = Properties.Settings.Default.MAFilesPath;
-            if (string.IsNullOrEmpty(maFilesFolderPath) || !Directory.Exists(maFilesFolderPath) 
-                || !File.Exists(Path.Combine(maFilesFolderPath, "manifest.json")) || !DBController.LoadSteamAccountsData())
-            {
-                MessageBox.Show("The Steam accounts were not loaded or the folder is empty.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            Application.Run(new MainForm());
+            initFormThread.Start();
         }
     }
 }
