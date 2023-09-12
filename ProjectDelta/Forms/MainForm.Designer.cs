@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPageTest = new System.Windows.Forms.TabPage();
             this.tabPageAutoMarket = new System.Windows.Forms.TabPage();
             this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket = new System.Windows.Forms.Label();
-            this.tabPageTest = new System.Windows.Forms.TabPage();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.tabControl.SuspendLayout();
             this.tabPageAutoMarket.SuspendLayout();
@@ -50,6 +50,16 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(878, 694);
             this.tabControl.TabIndex = 0;
+            // 
+            // tabPageTest
+            // 
+            this.tabPageTest.Location = new System.Drawing.Point(4, 34);
+            this.tabPageTest.Name = "tabPageTest";
+            this.tabPageTest.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTest.Size = new System.Drawing.Size(870, 656);
+            this.tabPageTest.TabIndex = 0;
+            this.tabPageTest.Text = "Test tab";
+            this.tabPageTest.UseVisualStyleBackColor = true;
             // 
             // tabPageAutoMarket
             // 
@@ -72,16 +82,6 @@
     " the settings and restart the app.\r\n";
             this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tabPageTest
-            // 
-            this.tabPageTest.Location = new System.Drawing.Point(4, 34);
-            this.tabPageTest.Name = "tabPageTest";
-            this.tabPageTest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTest.Size = new System.Drawing.Size(870, 656);
-            this.tabPageTest.TabIndex = 0;
-            this.tabPageTest.Text = "Test tab";
-            this.tabPageTest.UseVisualStyleBackColor = true;
-            // 
             // tabPageSettings
             // 
             this.tabPageSettings.Location = new System.Drawing.Point(4, 34);
@@ -98,6 +98,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(878, 694);
             this.Controls.Add(this.tabControl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Project Delta 1.0.0.0";

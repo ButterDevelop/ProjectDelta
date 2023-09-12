@@ -59,11 +59,11 @@
             // textBoxMAFilesPath
             // 
             this.textBoxMAFilesPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxMAFilesPath.Location = new System.Drawing.Point(156, 45);
+            this.textBoxMAFilesPath.Location = new System.Drawing.Point(156, 47);
             this.textBoxMAFilesPath.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxMAFilesPath.Name = "textBoxMAFilesPath";
             this.textBoxMAFilesPath.ReadOnly = true;
-            this.textBoxMAFilesPath.Size = new System.Drawing.Size(406, 30);
+            this.textBoxMAFilesPath.Size = new System.Drawing.Size(600, 30);
             this.textBoxMAFilesPath.TabIndex = 0;
             // 
             // labelMAFilesPath
@@ -81,11 +81,11 @@
             this.groupBoxMAFilesPath.Controls.Add(this.buttonMAFilesPath);
             this.groupBoxMAFilesPath.Controls.Add(this.labelMAFilesPath);
             this.groupBoxMAFilesPath.Controls.Add(this.textBoxMAFilesPath);
-            this.groupBoxMAFilesPath.Location = new System.Drawing.Point(27, 15);
+            this.groupBoxMAFilesPath.Location = new System.Drawing.Point(17, 20);
             this.groupBoxMAFilesPath.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxMAFilesPath.Name = "groupBoxMAFilesPath";
             this.groupBoxMAFilesPath.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBoxMAFilesPath.Size = new System.Drawing.Size(636, 99);
+            this.groupBoxMAFilesPath.Size = new System.Drawing.Size(834, 99);
             this.groupBoxMAFilesPath.TabIndex = 2;
             this.groupBoxMAFilesPath.TabStop = false;
             this.groupBoxMAFilesPath.Text = "Path to MA files";
@@ -95,7 +95,7 @@
             this.buttonMAFilesPath.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.buttonMAFilesPath.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.buttonMAFilesPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMAFilesPath.Location = new System.Drawing.Point(570, 42);
+            this.buttonMAFilesPath.Location = new System.Drawing.Point(770, 42);
             this.buttonMAFilesPath.Margin = new System.Windows.Forms.Padding(4);
             this.buttonMAFilesPath.Name = "buttonMAFilesPath";
             this.buttonMAFilesPath.Size = new System.Drawing.Size(44, 35);
@@ -109,10 +109,10 @@
             this.buttonSaveSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.buttonSaveSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.buttonSaveSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSaveSettings.Location = new System.Drawing.Point(277, 597);
+            this.buttonSaveSettings.Location = new System.Drawing.Point(361, 602);
             this.buttonSaveSettings.Name = "buttonSaveSettings";
-            this.buttonSaveSettings.Size = new System.Drawing.Size(150, 40);
-            this.buttonSaveSettings.TabIndex = 2;
+            this.buttonSaveSettings.Size = new System.Drawing.Size(141, 40);
+            this.buttonSaveSettings.TabIndex = 12;
             this.buttonSaveSettings.Text = "Save settings";
             this.buttonSaveSettings.UseVisualStyleBackColor = true;
             this.buttonSaveSettings.Click += new System.EventHandler(this.buttonSaveSettings_Click);
@@ -122,10 +122,10 @@
             this.listBoxMarketAccounts.BackColor = System.Drawing.SystemColors.Window;
             this.listBoxMarketAccounts.FormattingEnabled = true;
             this.listBoxMarketAccounts.ItemHeight = 25;
-            this.listBoxMarketAccounts.Location = new System.Drawing.Point(395, 30);
+            this.listBoxMarketAccounts.Location = new System.Drawing.Point(438, 23);
             this.listBoxMarketAccounts.Name = "listBoxMarketAccounts";
-            this.listBoxMarketAccounts.Size = new System.Drawing.Size(219, 79);
-            this.listBoxMarketAccounts.TabIndex = 5;
+            this.listBoxMarketAccounts.Size = new System.Drawing.Size(230, 154);
+            this.listBoxMarketAccounts.TabIndex = 6;
             // 
             // groupBoxMarketAccounts
             // 
@@ -138,11 +138,11 @@
             this.groupBoxMarketAccounts.Controls.Add(this.buttonAddMarketAccount);
             this.groupBoxMarketAccounts.Controls.Add(this.textBoxSteamIDMarketAccounts);
             this.groupBoxMarketAccounts.Controls.Add(this.listBoxMarketAccounts);
-            this.groupBoxMarketAccounts.Location = new System.Drawing.Point(27, 122);
+            this.groupBoxMarketAccounts.Location = new System.Drawing.Point(17, 127);
             this.groupBoxMarketAccounts.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxMarketAccounts.Name = "groupBoxMarketAccounts";
             this.groupBoxMarketAccounts.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBoxMarketAccounts.Size = new System.Drawing.Size(636, 202);
+            this.groupBoxMarketAccounts.Size = new System.Drawing.Size(834, 202);
             this.groupBoxMarketAccounts.TabIndex = 4;
             this.groupBoxMarketAccounts.TabStop = false;
             this.groupBoxMarketAccounts.Text = "Market accounts SteamID64";
@@ -151,7 +151,7 @@
             // 
             this.labelMarketAccountsAPI.Location = new System.Drawing.Point(23, 88);
             this.labelMarketAccountsAPI.Name = "labelMarketAccountsAPI";
-            this.labelMarketAccountsAPI.Size = new System.Drawing.Size(232, 28);
+            this.labelMarketAccountsAPI.Size = new System.Drawing.Size(340, 28);
             this.labelMarketAccountsAPI.TabIndex = 11;
             this.labelMarketAccountsAPI.Text = "Market API key:";
             this.labelMarketAccountsAPI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -162,8 +162,8 @@
             this.textBoxAPIKeyMarketAccounts.Location = new System.Drawing.Point(23, 120);
             this.textBoxAPIKeyMarketAccounts.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAPIKeyMarketAccounts.Name = "textBoxAPIKeyMarketAccounts";
-            this.textBoxAPIKeyMarketAccounts.Size = new System.Drawing.Size(232, 30);
-            this.textBoxAPIKeyMarketAccounts.TabIndex = 10;
+            this.textBoxAPIKeyMarketAccounts.Size = new System.Drawing.Size(340, 30);
+            this.textBoxAPIKeyMarketAccounts.TabIndex = 3;
             this.textBoxAPIKeyMarketAccounts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // listBoxMarketAPIKeys
@@ -171,27 +171,27 @@
             this.listBoxMarketAPIKeys.BackColor = System.Drawing.SystemColors.Window;
             this.listBoxMarketAPIKeys.FormattingEnabled = true;
             this.listBoxMarketAPIKeys.ItemHeight = 25;
-            this.listBoxMarketAPIKeys.Location = new System.Drawing.Point(395, 115);
+            this.listBoxMarketAPIKeys.Location = new System.Drawing.Point(674, 23);
             this.listBoxMarketAPIKeys.Name = "listBoxMarketAPIKeys";
-            this.listBoxMarketAPIKeys.Size = new System.Drawing.Size(219, 79);
-            this.listBoxMarketAPIKeys.TabIndex = 9;
+            this.listBoxMarketAPIKeys.Size = new System.Drawing.Size(140, 154);
+            this.listBoxMarketAPIKeys.TabIndex = 7;
             // 
             // labelMarketAccountArrow
             // 
             this.labelMarketAccountArrow.AutoSize = true;
             this.labelMarketAccountArrow.BackColor = System.Drawing.Color.Transparent;
             this.labelMarketAccountArrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMarketAccountArrow.Location = new System.Drawing.Point(278, 77);
+            this.labelMarketAccountArrow.Location = new System.Drawing.Point(375, 90);
             this.labelMarketAccountArrow.Name = "labelMarketAccountArrow";
-            this.labelMarketAccountArrow.Size = new System.Drawing.Size(93, 64);
+            this.labelMarketAccountArrow.Size = new System.Drawing.Size(60, 64);
             this.labelMarketAccountArrow.TabIndex = 8;
-            this.labelMarketAccountArrow.Text = "=>";
+            this.labelMarketAccountArrow.Text = ">";
             // 
             // labelMarketAccounts
             // 
             this.labelMarketAccounts.Location = new System.Drawing.Point(23, 30);
             this.labelMarketAccounts.Name = "labelMarketAccounts";
-            this.labelMarketAccounts.Size = new System.Drawing.Size(232, 20);
+            this.labelMarketAccounts.Size = new System.Drawing.Size(340, 20);
             this.labelMarketAccounts.TabIndex = 7;
             this.labelMarketAccounts.Text = "Steam ID:";
             this.labelMarketAccounts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -201,11 +201,11 @@
             this.buttonDeleteChosenMarketAccount.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.buttonDeleteChosenMarketAccount.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.buttonDeleteChosenMarketAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDeleteChosenMarketAccount.Location = new System.Drawing.Point(139, 159);
+            this.buttonDeleteChosenMarketAccount.Location = new System.Drawing.Point(243, 159);
             this.buttonDeleteChosenMarketAccount.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDeleteChosenMarketAccount.Name = "buttonDeleteChosenMarketAccount";
-            this.buttonDeleteChosenMarketAccount.Size = new System.Drawing.Size(116, 35);
-            this.buttonDeleteChosenMarketAccount.TabIndex = 4;
+            this.buttonDeleteChosenMarketAccount.Size = new System.Drawing.Size(120, 35);
+            this.buttonDeleteChosenMarketAccount.TabIndex = 5;
             this.buttonDeleteChosenMarketAccount.Text = "Delete chosen SteamID";
             this.buttonDeleteChosenMarketAccount.UseVisualStyleBackColor = true;
             this.buttonDeleteChosenMarketAccount.Click += new System.EventHandler(this.buttonDeleteChosenMarketAccount_Click);
@@ -218,8 +218,8 @@
             this.buttonAddMarketAccount.Location = new System.Drawing.Point(23, 159);
             this.buttonAddMarketAccount.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAddMarketAccount.Name = "buttonAddMarketAccount";
-            this.buttonAddMarketAccount.Size = new System.Drawing.Size(108, 35);
-            this.buttonAddMarketAccount.TabIndex = 3;
+            this.buttonAddMarketAccount.Size = new System.Drawing.Size(120, 35);
+            this.buttonAddMarketAccount.TabIndex = 4;
             this.buttonAddMarketAccount.Text = "Add";
             this.buttonAddMarketAccount.UseVisualStyleBackColor = true;
             this.buttonAddMarketAccount.Click += new System.EventHandler(this.buttonAddMarketAccount_Click);
@@ -230,7 +230,7 @@
             this.textBoxSteamIDMarketAccounts.Location = new System.Drawing.Point(23, 54);
             this.textBoxSteamIDMarketAccounts.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxSteamIDMarketAccounts.Name = "textBoxSteamIDMarketAccounts";
-            this.textBoxSteamIDMarketAccounts.Size = new System.Drawing.Size(232, 30);
+            this.textBoxSteamIDMarketAccounts.Size = new System.Drawing.Size(340, 30);
             this.textBoxSteamIDMarketAccounts.TabIndex = 2;
             this.textBoxSteamIDMarketAccounts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -242,11 +242,11 @@
             this.groupBoxPlayingAccounts.Controls.Add(this.buttonAddPlayingAccount);
             this.groupBoxPlayingAccounts.Controls.Add(this.textBoxSteamIDPlayingAccounts);
             this.groupBoxPlayingAccounts.Controls.Add(this.listBoxPlayingAccounts);
-            this.groupBoxPlayingAccounts.Location = new System.Drawing.Point(27, 331);
+            this.groupBoxPlayingAccounts.Location = new System.Drawing.Point(17, 336);
             this.groupBoxPlayingAccounts.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxPlayingAccounts.Name = "groupBoxPlayingAccounts";
             this.groupBoxPlayingAccounts.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBoxPlayingAccounts.Size = new System.Drawing.Size(636, 202);
+            this.groupBoxPlayingAccounts.Size = new System.Drawing.Size(834, 202);
             this.groupBoxPlayingAccounts.TabIndex = 5;
             this.groupBoxPlayingAccounts.TabStop = false;
             this.groupBoxPlayingAccounts.Text = "Playing accounts SteamID64";
@@ -256,17 +256,17 @@
             this.labelPlayingAccountArrow.AutoSize = true;
             this.labelPlayingAccountArrow.BackColor = System.Drawing.Color.Transparent;
             this.labelPlayingAccountArrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlayingAccountArrow.Location = new System.Drawing.Point(278, 77);
+            this.labelPlayingAccountArrow.Location = new System.Drawing.Point(375, 88);
             this.labelPlayingAccountArrow.Name = "labelPlayingAccountArrow";
-            this.labelPlayingAccountArrow.Size = new System.Drawing.Size(93, 64);
+            this.labelPlayingAccountArrow.Size = new System.Drawing.Size(60, 64);
             this.labelPlayingAccountArrow.TabIndex = 8;
-            this.labelPlayingAccountArrow.Text = "=>";
+            this.labelPlayingAccountArrow.Text = ">";
             // 
             // labelPlayingAccounts
             // 
             this.labelPlayingAccounts.Location = new System.Drawing.Point(23, 30);
             this.labelPlayingAccounts.Name = "labelPlayingAccounts";
-            this.labelPlayingAccounts.Size = new System.Drawing.Size(232, 20);
+            this.labelPlayingAccounts.Size = new System.Drawing.Size(340, 20);
             this.labelPlayingAccounts.TabIndex = 7;
             this.labelPlayingAccounts.Text = "Steam ID:";
             this.labelPlayingAccounts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -279,8 +279,8 @@
             this.buttonDeleteChosenPlayingAccount.Location = new System.Drawing.Point(23, 149);
             this.buttonDeleteChosenPlayingAccount.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDeleteChosenPlayingAccount.Name = "buttonDeleteChosenPlayingAccount";
-            this.buttonDeleteChosenPlayingAccount.Size = new System.Drawing.Size(232, 35);
-            this.buttonDeleteChosenPlayingAccount.TabIndex = 4;
+            this.buttonDeleteChosenPlayingAccount.Size = new System.Drawing.Size(340, 35);
+            this.buttonDeleteChosenPlayingAccount.TabIndex = 10;
             this.buttonDeleteChosenPlayingAccount.Text = "Delete chosen SteamID";
             this.buttonDeleteChosenPlayingAccount.UseVisualStyleBackColor = true;
             this.buttonDeleteChosenPlayingAccount.Click += new System.EventHandler(this.buttonDeleteChosenPlayingAccount_Click);
@@ -293,8 +293,8 @@
             this.buttonAddPlayingAccount.Location = new System.Drawing.Point(23, 104);
             this.buttonAddPlayingAccount.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAddPlayingAccount.Name = "buttonAddPlayingAccount";
-            this.buttonAddPlayingAccount.Size = new System.Drawing.Size(232, 35);
-            this.buttonAddPlayingAccount.TabIndex = 3;
+            this.buttonAddPlayingAccount.Size = new System.Drawing.Size(340, 35);
+            this.buttonAddPlayingAccount.TabIndex = 9;
             this.buttonAddPlayingAccount.Text = "Add this SteamID to list";
             this.buttonAddPlayingAccount.UseVisualStyleBackColor = true;
             this.buttonAddPlayingAccount.Click += new System.EventHandler(this.buttonAddPlayingAccount_Click);
@@ -305,8 +305,8 @@
             this.textBoxSteamIDPlayingAccounts.Location = new System.Drawing.Point(23, 54);
             this.textBoxSteamIDPlayingAccounts.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxSteamIDPlayingAccounts.Name = "textBoxSteamIDPlayingAccounts";
-            this.textBoxSteamIDPlayingAccounts.Size = new System.Drawing.Size(232, 30);
-            this.textBoxSteamIDPlayingAccounts.TabIndex = 2;
+            this.textBoxSteamIDPlayingAccounts.Size = new System.Drawing.Size(340, 30);
+            this.textBoxSteamIDPlayingAccounts.TabIndex = 8;
             this.textBoxSteamIDPlayingAccounts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // listBoxPlayingAccounts
@@ -314,16 +314,16 @@
             this.listBoxPlayingAccounts.BackColor = System.Drawing.SystemColors.Window;
             this.listBoxPlayingAccounts.FormattingEnabled = true;
             this.listBoxPlayingAccounts.ItemHeight = 25;
-            this.listBoxPlayingAccounts.Location = new System.Drawing.Point(395, 30);
+            this.listBoxPlayingAccounts.Location = new System.Drawing.Point(438, 30);
             this.listBoxPlayingAccounts.Name = "listBoxPlayingAccounts";
-            this.listBoxPlayingAccounts.Size = new System.Drawing.Size(219, 154);
-            this.listBoxPlayingAccounts.TabIndex = 5;
+            this.listBoxPlayingAccounts.Size = new System.Drawing.Size(376, 154);
+            this.listBoxPlayingAccounts.TabIndex = 11;
             // 
             // labelBufferAccounts
             // 
-            this.labelBufferAccounts.Location = new System.Drawing.Point(27, 537);
+            this.labelBufferAccounts.Location = new System.Drawing.Point(17, 542);
             this.labelBufferAccounts.Name = "labelBufferAccounts";
-            this.labelBufferAccounts.Size = new System.Drawing.Size(636, 57);
+            this.labelBufferAccounts.Size = new System.Drawing.Size(834, 57);
             this.labelBufferAccounts.TabIndex = 8;
             this.labelBufferAccounts.Text = "The rest of accounts in the folder counted as the Buffer accounts.";
             this.labelBufferAccounts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -342,7 +342,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SettingsUserControl";
-            this.Size = new System.Drawing.Size(700, 650);
+            this.Size = new System.Drawing.Size(870, 660);
             this.groupBoxMAFilesPath.ResumeLayout(false);
             this.groupBoxMAFilesPath.PerformLayout();
             this.groupBoxMarketAccounts.ResumeLayout(false);

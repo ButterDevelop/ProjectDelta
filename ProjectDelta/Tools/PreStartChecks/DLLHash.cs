@@ -55,6 +55,7 @@ namespace ProjectDelta.Tools.PreStartChecks
             /*File.AppendAllText("hashes.txt", CalculateMD5("BouncyCastle.Crypto.dll") + Environment.NewLine);
             File.AppendAllText("hashes.txt", CalculateMD5("Newtonsoft.Json.dll") + Environment.NewLine);
             File.AppendAllText("hashes.txt", CalculateMD5("xNet.dll") + Environment.NewLine);
+            File.AppendAllText("hashes.txt", CalculateMD5("SteamAuth.dll") + Environment.NewLine);
             //File.AppendAllText("hashes.txt", CalculateMD5("TranslationProperties.dll") + Environment.NewLine);
             Environment.Exit(0);*/
 
@@ -67,6 +68,7 @@ namespace ProjectDelta.Tools.PreStartChecks
                 if (CalculateMD5("BouncyCastle.Crypto.dll") != B64X.Decrypt(hashes[0])) q = true;
                 if (CalculateMD5("Newtonsoft.Json.dll") != B64X.Decrypt(hashes[1])) q = true;
                 if (CalculateMD5("xNet.dll") != B64X.Decrypt(hashes[2])) q = true;
+                if (CalculateMD5("SteamAuth.dll") != B64X.Decrypt(hashes[3])) q = true;
             }
             if (q)
             {

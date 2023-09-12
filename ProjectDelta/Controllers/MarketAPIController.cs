@@ -126,7 +126,6 @@ namespace ProjectDelta.Controllers
             };
 
             string json_answer = HTTPRequestController.SendRequest(url + TEST_ENDPOINT, RequestType.GET, null, parameters, 100);
-            MessageBox.Show("answer: " + json_answer);
 
             if (json_answer == null || json_answer.ToLower().Contains("<html>")) return false;
             return true;

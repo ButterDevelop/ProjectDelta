@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using ProjectDelta.Forms;
 using ProjectDelta.Models;
 using ProjectDelta.Tools;
 using SteamAuth;
@@ -7,11 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Principal;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using xNet;
 
@@ -37,6 +32,7 @@ namespace ProjectDelta.Controllers
         private static readonly int SAVE_REFRESH_RATE_MS = 1000;
         private const string URL_FOR_GETTING_LAST_DB_FROM_SERVER = "http://a116901.hostde27.fornex.host/delta/license/retrieveSyncDB.php";
         private const string URL_FOR_SENDING_DB_TO_SERVER = "http://a116901.hostde27.fornex.host/delta/license/insertSyncDB.php";
+
         private static string OldDBString = "";
         private static byte[] EncryptionKey;
         private static byte[] EncryptionIV;

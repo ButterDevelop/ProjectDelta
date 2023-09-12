@@ -96,7 +96,7 @@ namespace ProjectDelta.Controllers
             }
         }
 
-        public static Image DownloadImageFromURL(string imageUrl, int connectTimeoutMs = 1000)
+        public static string DownloadImageBase64FromURL(string imageUrl, int connectTimeoutMs = 1000)
         {
             try
             {
@@ -113,11 +113,9 @@ namespace ProjectDelta.Controllers
                     {
                         byte[] imageBytes = response.ToBytes();
 
-                        using (MemoryStream ms = new MemoryStream(imageBytes))
-                        {
-                            Image image = Image.FromStream(ms);
-                            return image;
-                        }
+                        // Преобразуйте массив байтов в строку Base64
+                        string base64Image = Convert.ToBase64String(imageBytes);
+                        return base64Image;
                     }
                     else
                     {

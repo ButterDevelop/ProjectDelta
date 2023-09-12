@@ -33,11 +33,11 @@
             // 
             // flowLayoutPanelAutoMarket
             // 
-            this.flowLayoutPanelAutoMarket.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelAutoMarket.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanelAutoMarket.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanelAutoMarket.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanelAutoMarket.Location = new System.Drawing.Point(0, 100);
             this.flowLayoutPanelAutoMarket.Name = "flowLayoutPanelAutoMarket";
-            this.flowLayoutPanelAutoMarket.Size = new System.Drawing.Size(700, 650);
+            this.flowLayoutPanelAutoMarket.Size = new System.Drawing.Size(700, 550);
             this.flowLayoutPanelAutoMarket.TabIndex = 0;
             // 
             // AutoMarketUserControl

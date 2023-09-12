@@ -12,18 +12,20 @@ namespace ProjectDelta.Forms
     public partial class InitializingForm : Form
     {
         private static readonly int TIMEOUT_FOR_CLOSING_MS = 5000;
-        private static readonly Color GOOD_COLOR = Color.Blue;
+        private static readonly Color GOOD_COLOR    = Color.Blue;
         private static readonly Color WARNING_COLOR = Color.Gold;
-        private static readonly Color BAD_COLOR = Color.Red;
+        private static readonly Color BAD_COLOR     = Color.Red;
         private static readonly Color DEFAULT_COLOR = Color.Black;
 
-        public static event Action InitializationCompleted;
-
-        private bool _stopTheAnimation = false;
+        public static bool ShutDownForm = false;
+        public bool localShutDownForm = false;
 
         public InitializingForm()
         {
             InitializeComponent();
+
+            ShutDownForm = false;
+            localShutDownForm = false;
 
             label1.ForeColor = DEFAULT_COLOR;
             label2.ForeColor = DEFAULT_COLOR;
@@ -53,9 +55,11 @@ namespace ProjectDelta.Forms
 
         public void AnimateLabelsText()
         {
+            Thread.Sleep(1000);
+
             int currentAnimationStep = 0;
 
-            while (!_stopTheAnimation)
+            while (!localShutDownForm)
             {
                 AnimateOneLabel(label1, currentAnimationStep);
                 AnimateOneLabel(label2, currentAnimationStep);
@@ -99,6 +103,8 @@ namespace ProjectDelta.Forms
             //MessageBox.Show("The database was not loaded or was empty.", "Project Delta: Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //MessageBox.Show("The Steam accounts were not loaded or the folder is empty.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //MessageBox.Show("The Steam Accounts info was not loaded! The next try will be there soon if it is necessary.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            Thread.Sleep(1000);
 
             // 1
             if (DBController.GetEncryptionKey())
@@ -151,9 +157,6 @@ namespace ProjectDelta.Forms
             UpdateLabelColorGood(label6);
 
             // The last action
-            _stopTheAnimation = true;
-            Thread.Sleep(TIMEOUT_FOR_CLOSING_MS);
-            InitializationCompleted?.Invoke(); // Вызываем событие, когда инициализация завершена
             CloseForm();
         }
 
@@ -193,21 +196,25 @@ namespace ProjectDelta.Forms
             }
             else
             {
-                this.Close();
+                localShutDownForm = true;
+                Thread.Sleep(TIMEOUT_FOR_CLOSING_MS);
+                ShutDownForm = true;
+                Thread.Sleep(TIMEOUT_FOR_CLOSING_MS);
+                // The main thread will not start MainForm for some reason if this form is closed.
+                // this.Close();
             }
         }
 
         private void CloseFullApp(int timeoutMs)
         {
-            _stopTheAnimation = true;
-            Thread.Sleep(timeoutMs);
-
             if (this.InvokeRequired)
             {
                 this.Invoke(new Action<int>(CloseFullApp), timeoutMs);
             }
             else
             {
+                ShutDownForm = true;
+                Thread.Sleep(timeoutMs);
                 Environment.Exit(0);
             }
         }
@@ -215,15 +222,19 @@ namespace ProjectDelta.Forms
 
         public static void StartNewInitForm()
         {
-            var initForm = new InitializingForm();
-            if (!Program.silent)
+            try
             {
-                initForm.ShowDialog();
+                var initForm = new InitializingForm();
+                if (!Program.silent)
+                {
+                    initForm.ShowDialog();
+                }
+                else
+                {
+                    initForm.DoInitializeWork();
+                }
             }
-            else
-            {
-                initForm.DoInitializeWork();
-            }
+            catch { }
         }
     }
 }

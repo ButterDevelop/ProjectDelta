@@ -49,19 +49,17 @@ namespace ProjectDelta
             Thread.Sleep(100);
             t.Abort();
 
-            if (UpdateChecker.NewVersion() && !disableAutoUpdateCheck && !silent) Application.Run(new ChangeLog());
+            if (!disableAutoUpdateCheck && !silent && UpdateChecker.NewVersion()) Application.Run(new ChangeLog());
 
-            var initFormThread = new Thread(() => InitializingForm.StartNewInitForm());
-            InitializingForm.InitializationCompleted += () =>
-            {
-                Thread.Sleep(1000);
-                // Запуск следующей формы
-                new Thread(() => DBController.SaveWithCheck()).Start();
-                Thread.Sleep(250);
-                Application.Run(new MainForm());
-            };
+            var initThread = new Thread(() => InitializingForm.StartNewInitForm());
+            initThread.Start();
+            while (!InitializingForm.ShutDownForm) { Thread.Sleep(1000); }
+            initThread.Abort();
 
-            initFormThread.Start();
+            new Thread(() => DBController.SaveWithCheck()).Start();
+            Thread.Sleep(250);
+
+            Application.Run(new MainForm());
         }
     }
 }

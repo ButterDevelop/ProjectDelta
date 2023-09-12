@@ -11,6 +11,8 @@ using System.Xml;
 using ProjectDelta.ClassesForXMLandJSONParsing;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Newtonsoft.Json;
+using System.Drawing.Imaging;
 
 namespace ProjectDelta.Controllers
 {
@@ -28,6 +30,7 @@ namespace ProjectDelta.Controllers
 
         private string _fullAvatarUrl;
         private Image _fullAvatarImage;
+        private string _fullAvatarImageBase64;
 
 
         public SteamWebProfileController()
@@ -37,6 +40,7 @@ namespace ProjectDelta.Controllers
             _nickname = "";
             _fullAvatarUrl = "";
             _fullAvatarImage = null;
+            _fullAvatarImageBase64 = "";
             _xmlData = null;
         }
 
@@ -53,6 +57,10 @@ namespace ProjectDelta.Controllers
             {
                 return _lastParse;
             }
+            set
+            {
+                _lastParse = value;
+            }
         }
 
         public string SteamId
@@ -60,6 +68,10 @@ namespace ProjectDelta.Controllers
             get
             {
                 return _steamId;
+            }
+            set
+            {
+                _steamId = value;
             }
         }
 
@@ -69,6 +81,10 @@ namespace ProjectDelta.Controllers
             {
                 return _nickname;
             }
+            set
+            {
+                _nickname = value;
+            }
         }
 
         public string FullAvatarUrl
@@ -77,8 +93,26 @@ namespace ProjectDelta.Controllers
             {
                 return _fullAvatarUrl;
             }
+            set
+            {
+                _fullAvatarUrl = value;
+            }
         }
 
+        public string FullAvatarImageBase64
+        {
+            get
+            {
+                return _fullAvatarImageBase64;
+            }
+            set
+            {
+                _fullAvatarImageBase64 = value;
+                _fullAvatarImage = ConvertBase64ToImage(_fullAvatarImageBase64);
+            }
+        }
+
+        [JsonIgnore]
         public Image FullAvatarImage
         {
             get
@@ -87,12 +121,30 @@ namespace ProjectDelta.Controllers
             }
         }
 
+        [JsonIgnore]
         public XML_SteamWebProfile.Profile XmlData
         {
             get
             {
                 return _xmlData;
             }
+        }
+
+
+        public static Image ConvertBase64ToImage(string str)
+        {
+            if (!string.IsNullOrEmpty(str))
+            {
+                // Преобразуем строку Base64 в массив байтов
+                byte[] imageBytes = Convert.FromBase64String(str);
+
+                using (MemoryStream ms = new MemoryStream(imageBytes))
+                {
+                    // Создаем изображение из потока
+                    return Image.FromStream(ms);
+                }
+            }
+            return null;
         }
 
         public void RefreshData()
@@ -114,11 +166,12 @@ namespace ProjectDelta.Controllers
 
                 _nickname = _xmlData.SteamID;
 
-                if (!string.IsNullOrEmpty(_xmlData.AvatarFull) && _fullAvatarUrl != _xmlData.AvatarFull)
+                if (_xmlData != null && !string.IsNullOrEmpty(_xmlData.AvatarFull)
+                   && (_fullAvatarUrl != _xmlData.AvatarFull || string.IsNullOrEmpty(_fullAvatarImageBase64)))
                 {
                     _fullAvatarUrl = _xmlData.AvatarFull;
-                    Image image = HTTPRequestController.DownloadImageFromURL(_fullAvatarUrl);
-                    _fullAvatarImage = image;
+                    //Doing this assignment with a setter usage
+                    FullAvatarImageBase64 = HTTPRequestController.DownloadImageBase64FromURL(_fullAvatarUrl);
                 }
 
                 _lastParse = true;

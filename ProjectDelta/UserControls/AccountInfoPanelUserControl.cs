@@ -65,7 +65,7 @@ namespace ProjectDelta.UserControls
             else
             {
                 labelMarketAPIKeyStatus.ForeColor = Color.OrangeRed;
-                labelMarketAPIKeyStatus.Text = "Market is DOWN.";
+                labelMarketAPIKeyStatus.Text = "Server is DOWN.";
             }
         }
     }
