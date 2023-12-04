@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using ProjectDelta.ClassesForXMLandJSONParsing;
+using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 using System.Xml;
-using ProjectDelta.ClassesForXMLandJSONParsing;
-using System.Windows.Forms;
-using System.Xml.Linq;
-using Newtonsoft.Json;
-using System.Drawing.Imaging;
+using System.Xml.Serialization;
 
 namespace ProjectDelta.Controllers
 {

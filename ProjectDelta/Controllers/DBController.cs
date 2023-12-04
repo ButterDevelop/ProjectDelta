@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Windows.Forms;
 using xNet;
 
 namespace ProjectDelta.Controllers
@@ -25,14 +24,6 @@ namespace ProjectDelta.Controllers
         public static Dictionary<string, SteamGuardAccount> BufferAccounts = new Dictionary<string, SteamGuardAccount>();
         public static Dictionary<string, SteamGuardAccount> MarketAccounts = new Dictionary<string, SteamGuardAccount>();
 
-        internal static readonly string MA_MANIFEST_FILE_NAME = "manifest.json";
-        internal static readonly string MA_FILES_PASSKEY = B64X.Encrypt("Qwertyzxc321678");
-        private static readonly string ENCRYPTION_KEY_PATH = B64X.Encrypt("TranslationProperties.dll");
-        private static readonly string DB_FILE_PATH = "deltaDB.json";
-        private static readonly int SAVE_REFRESH_RATE_MS = 1000;
-        private const string URL_FOR_GETTING_LAST_DB_FROM_SERVER = "http://a116901.hostde27.fornex.host/delta/license/retrieveSyncDB.php";
-        private const string URL_FOR_SENDING_DB_TO_SERVER = "http://a116901.hostde27.fornex.host/delta/license/insertSyncDB.php";
-
         private static string OldDBString = "";
         private static byte[] EncryptionKey;
         private static byte[] EncryptionIV;
@@ -46,8 +37,8 @@ namespace ProjectDelta.Controllers
 
         public static void CreateKeys()
         {
-            File.WriteAllText(B64X.Decrypt(ENCRYPTION_KEY_PATH), Convert.ToBase64String(AesGcm256.NewKey()) + Environment.NewLine);
-            File.AppendAllText(B64X.Decrypt(ENCRYPTION_KEY_PATH), Convert.ToBase64String(AesGcm256.NewIv()));
+            File.WriteAllText(B64X.Decrypt(ConstantsController.ENCRYPTION_KEY_PATH), Convert.ToBase64String(AesGcm256.NewKey()) + Environment.NewLine);
+            File.AppendAllText(B64X.Decrypt(ConstantsController.ENCRYPTION_KEY_PATH), Convert.ToBase64String(AesGcm256.NewIv()));
         }
 
         public static void SaveWithCheck()
@@ -62,7 +53,7 @@ namespace ProjectDelta.Controllers
                     OldDBString = newDBString;
                 }
 
-                Thread.Sleep(SAVE_REFRESH_RATE_MS);
+                Thread.Sleep(ConstantsController.SAVE_REFRESH_RATE_MS);
             }
         }
 
@@ -72,7 +63,7 @@ namespace ProjectDelta.Controllers
             {
                 var json = GenerateDataForSaving();
                 if (json == "-1") return false;
-                File.WriteAllText(DB_FILE_PATH, AesGcm256.encrypt(json, EncryptionKey, EncryptionIV));
+                File.WriteAllText(ConstantsController.DB_FILE_PATH, AesGcm256.encrypt(json, EncryptionKey, EncryptionIV));
 
                 return true;
             }
@@ -86,7 +77,7 @@ namespace ProjectDelta.Controllers
         {
             try
             {
-                return B64X.Encrypt(AesGcm256.decrypt(File.ReadAllText(DB_FILE_PATH), EncryptionKey, EncryptionIV));
+                return B64X.Encrypt(AesGcm256.decrypt(File.ReadAllText(ConstantsController.DB_FILE_PATH), EncryptionKey, EncryptionIV));
             }
             catch
             {
@@ -123,7 +114,7 @@ namespace ProjectDelta.Controllers
             try
             {
                 ManifestSDAController manifest = ManifestSDAController.GetManifest();
-                Dictionary<string, SteamGuardAccount> allAccounts = manifest.GetAllAccounts(B64X.Decrypt(MA_FILES_PASSKEY));
+                Dictionary<string, SteamGuardAccount> allAccounts = manifest.GetAllAccounts(B64X.Decrypt(ConstantsController.MA_FILES_PASSKEY));
 
                 foreach (var account in allAccounts)
                 {
@@ -218,7 +209,7 @@ namespace ProjectDelta.Controllers
                 var jsonData = GenerateDataForSaving();
                 if (jsonData == "-1") return false;
 
-                File.WriteAllText(DB_FILE_PATH, jsonData);
+                File.WriteAllText(ConstantsController.DB_FILE_PATH, jsonData);
 
                 return true;
             }
@@ -230,10 +221,10 @@ namespace ProjectDelta.Controllers
 
         public static bool GetEncryptionKey()
         {
-            if (!File.Exists(DB_FILE_PATH)) File.WriteAllText(DB_FILE_PATH, "");
-            if (!File.Exists(B64X.Decrypt(ENCRYPTION_KEY_PATH)) || !File.Exists(DB_FILE_PATH)) return false;
+            if (!File.Exists(ConstantsController.DB_FILE_PATH)) File.WriteAllText(ConstantsController.DB_FILE_PATH, "");
+            if (!File.Exists(B64X.Decrypt(ConstantsController.ENCRYPTION_KEY_PATH)) || !File.Exists(ConstantsController.DB_FILE_PATH)) return false;
 
-            var lines = File.ReadAllLines(B64X.Decrypt(ENCRYPTION_KEY_PATH));
+            var lines = File.ReadAllLines(B64X.Decrypt(ConstantsController.ENCRYPTION_KEY_PATH));
 
             if (lines.Length != 2) return false;
 
@@ -248,7 +239,7 @@ namespace ProjectDelta.Controllers
             return true;
         }
 
-        public static string SendDBToServer(string dbText, string url = URL_FOR_SENDING_DB_TO_SERVER)
+        public static string SendDBToServer(string dbText, string url = ConstantsController.URL_FOR_SENDING_DB_TO_SERVER)
         {
             try
             {
@@ -267,7 +258,7 @@ namespace ProjectDelta.Controllers
             catch { return "-1"; }
         }
 
-        public static string GetLastDBFromServer(string url = URL_FOR_GETTING_LAST_DB_FROM_SERVER)
+        public static string GetLastDBFromServer(string url = ConstantsController.URL_FOR_GETTING_LAST_DB_FROM_SERVER)
         {
             try
             {

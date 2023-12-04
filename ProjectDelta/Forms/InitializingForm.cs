@@ -1,9 +1,8 @@
-﻿using Org.BouncyCastle.Crypto;
-using ProjectDelta.Controllers;
+﻿using ProjectDelta.Controllers;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -20,10 +19,15 @@ namespace ProjectDelta.Forms
         public static bool ShutDownForm = false;
         public bool localShutDownForm = false;
 
+        private Dictionary<Label, string> _goodLabelMessages = new Dictionary<Label, string>();
+
         public InitializingForm()
         {
             InitializeComponent();
+        }
 
+        private void InitializingForm_Load(object sender, EventArgs e)
+        {
             ShutDownForm = false;
             localShutDownForm = false;
 
@@ -35,10 +39,14 @@ namespace ProjectDelta.Forms
             label6.ForeColor = DEFAULT_COLOR;
 
             FormClosing += InitializingForm_FormClosing;
-        }
 
-        private void InitializingForm_Load(object sender, EventArgs e)
-        {
+            _goodLabelMessages.Add(label1, "Got the encryption keys.");
+            _goodLabelMessages.Add(label2, "Loaded the database data.");
+            _goodLabelMessages.Add(label3, "Initialized the HTTP client.");
+            _goodLabelMessages.Add(label4, "Loaded MA files.");
+            _goodLabelMessages.Add(label5, "Loaded Steam web profiles.");
+            _goodLabelMessages.Add(label6, "Started the program.");
+
             if (!Program.silent)
             {
                 new Thread(() => AnimateLabelsText()).Start();
@@ -89,11 +97,6 @@ namespace ProjectDelta.Forms
 
                 UpdateLabel(label, new_text, label.ForeColor);
             }
-            else
-            {
-                string reversed_text = string.Join("", label.Text.Reverse().ToArray());
-                if (!reversed_text.StartsWith("...")) UpdateLabel(label, label.Text + ".", label.ForeColor);
-            }
         }
 
         public void DoInitializeWork()
@@ -134,7 +137,7 @@ namespace ProjectDelta.Forms
             // 4
             string maFilesFolderPath = Properties.Settings.Default.MAFilesPath;
             if (string.IsNullOrEmpty(maFilesFolderPath) || !Directory.Exists(maFilesFolderPath)
-                || !File.Exists(Path.Combine(maFilesFolderPath, DBController.MA_MANIFEST_FILE_NAME)) || !DBController.LoadSteamAccountsData())
+                || !File.Exists(Path.Combine(maFilesFolderPath, ConstantsController.MA_MANIFEST_FILE_NAME)) || !DBController.LoadSteamAccountsData())
             {
                 UpdateLabelColorWarning(label4);
             }
@@ -154,6 +157,7 @@ namespace ProjectDelta.Forms
             }
 
             //6
+            Thread.Sleep(1000);
             UpdateLabelColorGood(label6);
 
             // The last action
@@ -162,7 +166,8 @@ namespace ProjectDelta.Forms
 
         private void UpdateLabelColorGood(Label label)
         {
-            UpdateLabel(label, $"✔ [{DateTime.Now}] " + label.Text, GOOD_COLOR);
+            string new_text = _goodLabelMessages.ContainsKey(label) ? _goodLabelMessages[label] : label.Text;
+            UpdateLabel(label, $"✔ [{DateTime.Now}] " + new_text, GOOD_COLOR);
         }
         private void UpdateLabelColorWarning(Label label)
         {

@@ -41,7 +41,7 @@ namespace ProjectDelta.UserControls
                 {
                     await account.Session.RefreshAccessToken();
                     ManifestSDAController manifest = ManifestSDAController.GetManifest();
-                    if (!manifest.SaveAccount(account, DBController.MA_FILES_PASSKEY != null, B64X.Decrypt(DBController.MA_FILES_PASSKEY)))
+                    if (!manifest.SaveAccount(account, ConstantsController.MA_FILES_PASSKEY != null, B64X.Decrypt(ConstantsController.MA_FILES_PASSKEY)))
                     {
                         manifest.RemoveAccount(account);
                     }

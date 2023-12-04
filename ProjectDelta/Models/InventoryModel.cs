@@ -3,12 +3,15 @@ using ProjectDelta.ClassesForJSONandXMLParsing;
 using ProjectDelta.Controllers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectDelta.Models
 {
+    internal enum SteamGame
+    {
+        CS = 730,
+        DOTA = 570
+    }
+
     internal class InventoryModel
     {
         public readonly static int[] AppIDs = new int[2] { 730, 570 };
@@ -77,8 +80,7 @@ namespace ProjectDelta.Models
                 {
                     hasNextPage = false;
 
-                    string jsonString = HTTPRequestController.ExecuteFunctionUntilSuccess(() => SendGetInventoryRequest(appId, start_assetid), 
-                                                                                                HTTPRequestController.COUNT_OF_REQUEST_ATTEMPTS);
+                    string jsonString = HTTPRequestController.ExecuteFunctionUntilSuccess(() => SendGetInventoryRequest(appId, start_assetid));
                     if (jsonString is null) break;
 
                     JSON_Inventory.Root inventory = JsonConvert.DeserializeObject<JSON_Inventory.Root>(jsonString);

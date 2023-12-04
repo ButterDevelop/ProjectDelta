@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ProjectDelta.Controllers;
+﻿using ProjectDelta.Controllers;
 using ProjectDelta.UserControls;
+using System;
+using System.Windows.Forms;
 
 namespace ProjectDelta.Forms
 {
     public partial class MainForm : Form
     {
-        public static AutoMarketUserControl autoMarketUserControl = new AutoMarketUserControl();
         public static UserControl1 userControl1 = new UserControl1();
+        public static AutoMarketUserControl autoMarketUserControl = new AutoMarketUserControl();
+        public static AllAccountsInfoUserControl allAccountsInfoUserControl = new AllAccountsInfoUserControl();
         public static SettingsUserControl settingsUserControl = new SettingsUserControl();
 
         public MainForm()
@@ -26,10 +20,12 @@ namespace ProjectDelta.Forms
 
             tabPageAutoMarket.Controls.Add(autoMarketUserControl);
             tabPageTest.Controls.Add(userControl1);
+            tabPageAllAccountsInfo.Controls.Add(allAccountsInfoUserControl);
             tabPageSettings.Controls.Add(settingsUserControl);
 
             autoMarketUserControl.BringToFront();
             userControl1.BringToFront();
+            allAccountsInfoUserControl.BringToFront();
             settingsUserControl.BringToFront();
         }
 

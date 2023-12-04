@@ -33,15 +33,19 @@
             this.tabPageTest = new System.Windows.Forms.TabPage();
             this.tabPageAutoMarket = new System.Windows.Forms.TabPage();
             this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket = new System.Windows.Forms.Label();
+            this.tabPageAllAccountsInfo = new System.Windows.Forms.TabPage();
+            this.labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo = new System.Windows.Forms.Label();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.tabControl.SuspendLayout();
             this.tabPageAutoMarket.SuspendLayout();
+            this.tabPageAllAccountsInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabPageTest);
             this.tabControl.Controls.Add(this.tabPageAutoMarket);
+            this.tabControl.Controls.Add(this.tabPageAllAccountsInfo);
             this.tabControl.Controls.Add(this.tabPageSettings);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -73,14 +77,37 @@
             // 
             // labelBackgroundTextAccountsWereNotLoaded_AutoMarket
             // 
-            this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket.Location = new System.Drawing.Point(8, 0);
+            this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket.Location = new System.Drawing.Point(0, 0);
             this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket.Name = "labelBackgroundTextAccountsWereNotLoaded_AutoMarket";
-            this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket.Size = new System.Drawing.Size(854, 651);
+            this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket.Size = new System.Drawing.Size(870, 656);
             this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket.TabIndex = 0;
             this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket.Text = "You see this message because the function you have entered is disabled.\r\n\r\nThe St" +
     "eam accounts were not loaded or MA files path was not specified.\r\n\r\nPlease check" +
     " the settings and restart the app.\r\n";
             this.labelBackgroundTextAccountsWereNotLoaded_AutoMarket.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tabPageAllAccountsInfo
+            // 
+            this.tabPageAllAccountsInfo.Controls.Add(this.labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo);
+            this.tabPageAllAccountsInfo.Location = new System.Drawing.Point(4, 34);
+            this.tabPageAllAccountsInfo.Name = "tabPageAllAccountsInfo";
+            this.tabPageAllAccountsInfo.Size = new System.Drawing.Size(870, 656);
+            this.tabPageAllAccountsInfo.TabIndex = 3;
+            this.tabPageAllAccountsInfo.Text = "All accounts info";
+            this.tabPageAllAccountsInfo.UseVisualStyleBackColor = true;
+            // 
+            // labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo
+            // 
+            this.labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo.Location = new System.Drawing.Point(0, 0);
+            this.labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo.Name = "labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo";
+            this.labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo.Size = new System.Drawing.Size(870, 656);
+            this.labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo.TabIndex = 1;
+            this.labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo.Text = "You see this message because the function you have entered is disabled.\r\n\r\nThe St" +
+    "eam accounts were not loaded or MA files path was not specified.\r\n\r\nPlease check" +
+    " the settings and restart the app.\r\n";
+            this.labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabPageSettings
             // 
@@ -101,9 +128,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "Project Delta 1.0.0.0";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Project Delta 1.0.0.0 by ButterDevelop";
             this.tabControl.ResumeLayout(false);
             this.tabPageAutoMarket.ResumeLayout(false);
+            this.tabPageAllAccountsInfo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -115,6 +144,8 @@
         private System.Windows.Forms.TabPage tabPageSettings;
         private System.Windows.Forms.TabPage tabPageAutoMarket;
         private System.Windows.Forms.Label labelBackgroundTextAccountsWereNotLoaded_AutoMarket;
+        private System.Windows.Forms.TabPage tabPageAllAccountsInfo;
+        private System.Windows.Forms.Label labelBackgroundTextAccountsWereNotLoaded_AllAccountsInfo;
     }
 }
 

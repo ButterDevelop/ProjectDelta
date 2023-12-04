@@ -34,8 +34,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.panelForLabels = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.panelForLabels.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,13 +74,6 @@
             this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Name = "label5";
             // 
-            // label6
-            // 
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Name = "label6";
-            // 
             // panelForLabels
             // 
             this.panelForLabels.BackColor = System.Drawing.Color.Transparent;
@@ -92,6 +85,13 @@
             this.panelForLabels.Controls.Add(this.label1);
             resources.ApplyResources(this.panelForLabels, "panelForLabels");
             this.panelForLabels.Name = "panelForLabels";
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Name = "label6";
             // 
             // InitializingForm
             // 
@@ -116,7 +116,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panelForLabels;
+        private System.Windows.Forms.Label label6;
     }
 }

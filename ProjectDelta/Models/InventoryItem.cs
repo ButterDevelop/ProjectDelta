@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectDelta.Models
 {
-    internal enum SteamGame
-    {
-        CS = 0,
-        DOTA = 1
-    }
     internal class InventoryItem
     {
         private string _marketHashName;

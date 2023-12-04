@@ -21,7 +21,7 @@ namespace ProjectDelta.Controllers
 
     internal class HTTPRequestController
     {
-        public static readonly int COUNT_OF_REQUEST_ATTEMPTS = 3;
+        public const int COUNT_OF_REQUEST_ATTEMPTS = 3;
 
         private static string[] _userAgents;
         private static Random _rnd;
@@ -45,7 +45,7 @@ namespace ProjectDelta.Controllers
         }
 
         public static string SendRequest(string url, RequestType type, Dictionary<string, string> headers = null, Dictionary<string, string> parameters = null,
-                                         int connectTimeoutMs = 1000)
+                                         string referer = null, int connectTimeoutMs = 1000)
         {
             try
             {
@@ -55,6 +55,8 @@ namespace ProjectDelta.Controllers
                     request.SslCertificateValidatorCallback += ServerCertificateValidationCallback;
                     request.IgnoreProtocolErrors = true;
                     request.ConnectTimeout = connectTimeoutMs;
+
+                    if (referer != null) request.Referer = referer;
 
                     request.UserAgent = GetRandomUserAgent();
                     request.KeepAlive = true;
@@ -129,7 +131,7 @@ namespace ProjectDelta.Controllers
             }
         }
 
-        public static string ExecuteFunctionUntilSuccess(Func<string> function, int countOfAttempts)
+        public static string ExecuteFunctionUntilSuccess(Func<string> function, int countOfAttempts = COUNT_OF_REQUEST_ATTEMPTS)
         {
             string result = null;
             int attempts = 0;

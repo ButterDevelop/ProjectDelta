@@ -136,7 +136,7 @@
     <value>0</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Getting encryption keys...</value>
+    <value>Getting the encryption keys...</value>
   </data>
   <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -172,7 +172,7 @@
     <value>4</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Loading database data...</value>
+    <value>Loading the database data...</value>
   </data>
   <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -208,7 +208,7 @@
     <value>6</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>Initializing HTTP client...</value>
+    <value>Initializing the HTTP client...</value>
   </data>
   <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -313,7 +313,7 @@
     <value>676, 29</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>Starting the program...</value>
@@ -2332,6 +2332,9 @@
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Initializing Project Delta - a few minutes, please</value>

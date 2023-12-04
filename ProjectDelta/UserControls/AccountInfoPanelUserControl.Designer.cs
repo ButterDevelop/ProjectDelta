@@ -162,11 +162,12 @@
             // labelMarketAPIKeyStatus
             // 
             this.labelMarketAPIKeyStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelMarketAPIKeyStatus.ForeColor = System.Drawing.Color.DimGray;
             this.labelMarketAPIKeyStatus.Location = new System.Drawing.Point(423, 84);
             this.labelMarketAPIKeyStatus.Name = "labelMarketAPIKeyStatus";
             this.labelMarketAPIKeyStatus.Size = new System.Drawing.Size(205, 26);
             this.labelMarketAPIKeyStatus.TabIndex = 14;
-            this.labelMarketAPIKeyStatus.Text = "MarketAPIkeylabel";
+            this.labelMarketAPIKeyStatus.Text = "Refreshing...";
             this.labelMarketAPIKeyStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMarketAPIStatus
@@ -179,9 +180,10 @@
             this.labelMarketAPIStatus.Text = "Market API status:";
             this.labelMarketAPIStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // AutoMarketPanelUserControl
+            // AccountInfoPanelUserControl
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.labelMarketAPIStatus);
             this.Controls.Add(this.labelMarketAPIKeyStatus);
@@ -196,7 +198,7 @@
             this.Controls.Add(this.labelSteamAccountName);
             this.Controls.Add(this.pictureBoxSteamAccountAvatar);
             this.Controls.Add(this.textBoxSteamAccountName);
-            this.Name = "AutoMarketPanelUserControl";
+            this.Name = "AccountInfoPanelUserControl";
             this.Size = new System.Drawing.Size(640, 120);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSteamAccountAvatar)).EndInit();
             this.ResumeLayout(false);
