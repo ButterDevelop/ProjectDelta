@@ -1,11 +1,9 @@
-﻿using ProjectDelta.Tools;
+﻿using ProjectDelta.Controllers;
+using ProjectDelta.Forms;
 using ProjectDelta.Tools.PreStartChecks;
 using System;
 using System.Threading;
 using System.Windows.Forms;
-using ProjectDelta.Forms;
-using ProjectDelta.Controllers;
-using System.IO;
 
 namespace ProjectDelta
 {
@@ -38,18 +36,18 @@ namespace ProjectDelta
                 }
             }
 
-            var t = new Thread(() => CheckLicenseFormStarter.NewForm());
-            t.Start();
-            Thread.Sleep(100);
+            //var t = new Thread(() => CheckLicenseFormStarter.NewForm());
+            //t.Start();
+            //Thread.Sleep(100);
 
-            DLLHash.CheckDLLHash();
-            MutexChecker.CheckMutex();
-            CheckLicense.Check();
+            //DLLHash.CheckDLLHash();
+            //MutexChecker.CheckMutex();
+            //CheckLicense.Check();
 
-            Thread.Sleep(100);
-            t.Abort();
+            //Thread.Sleep(100);
+            //t.Abort();
 
-            if (!disableAutoUpdateCheck && !silent && UpdateChecker.NewVersion()) Application.Run(new ChangeLog());
+            //if (!disableAutoUpdateCheck && !silent && UpdateChecker.NewVersion()) Application.Run(new ChangeLog());
 
             var initThread = new Thread(() => InitializingForm.StartNewInitForm());
             initThread.Start();
